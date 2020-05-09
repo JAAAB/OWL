@@ -1,0 +1,22 @@
+{
+  "name": "owl",
+  "version": "1.0.0",
+  "description": "JAAAB Consultants Inc. - OWL Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jaaab/owl.git"
+  },
+  "author": "JAAAB Consultants Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaaab/owl/issues"
+  },
+  "homepage": "https://github.com/jaaab/owl#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
