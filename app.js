@@ -9,36 +9,29 @@ app.get("/", (req, res) => {
 })
 
 app.get("/viewtable/:tableName", (req, res) => {
-	var name = req.param.tableName;
+	const name = req.params.tableName;
 	console.log("Viewing table: " + name);
 
 	const connection = mysql.createConnection({ //creating connection to mysql db
 		host: 'localhost',
-		user: 'root',
-		password: '',
+		user: 'owl',
+		password: 'jaaab',
 		database: 'suppliers'
-	})
-	
+	})	
 
-	var queryString = "SELECT * FROM ?"; //setting query string with variable
-	connection.query(queryString, [name], (err, rows, fields) => { //running query
+	var queryString = 'SELECT * FROM ' + name; //setting query string with variable
+	connection.query(queryString, (err, rows, fields) => { //running query
 		if(err) {
-			console.log("Failed to grab table: " + err);
+			console.log("Failed to fetch table: " + err);
 			res.sendStatus(500);
 			return;
 		}
-
 		console.log("Fetching " + name + " table");
 		res.json(rows);
 	})
-
 })
 
-
-
-
 var portNum = 3003;
-
 app.listen(portNum, () => {
 	console.log("Server up on port " + portNum)
 })
