@@ -125,7 +125,6 @@ create table tblSales(
 	FOREIGN KEY(BookID) REFERENCES tblBook(BookID)
 );
 
-# Weird Error here
 create table tblOrderItem(
 	OrderItemID INT AUTO_INCREMENT PRIMARY KEY,
 	OrderID INT,
