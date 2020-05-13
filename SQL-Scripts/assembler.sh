@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# This should assemble the databases and toss the data in.
+# Let me know if it doesn't.
+
+USER='root'
+INIT='init-supplier-db-assemble.sql'
+SECONDARY='secondary-project-db-assemble.sql'
+
+sudo mysql -u $USER -p < reset.sql > reset-output.txt
+
+sudo mysql -u $USER -p < $INIT > init-output.txt
+sudo mysql -u $USER -p < $SECONDARY > secondary-output.txt
+

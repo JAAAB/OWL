@@ -1,0 +1,67 @@
+create database suppliers;
+
+use suppliers;
+
+create table tblSupplier(
+	SupplierID INT AUTO_INCREMENT PRIMARY KEY, 
+	SupplierName VARCHAR(25) NOT NULL,
+	Email VARCHAR(25) NOT NULL,
+	Address VARCHAR(50) NOT NULL,
+	PhoneNumber VARCHAR(12),
+	CellPhoneNumber VARCHAR(12),
+	UNIQUE INDEX suppliers_unique (SupplierID DESC)
+);
+
+create table tblTypesetter(
+	TypesetterID INT AUTO_INCREMENT PRIMARY KEY,
+	SupplierID INT,
+	AvgCost INT DEFAULT NULL,
+	AvgRating INT DEFAULT NULL,
+	FOREIGN KEY(SupplierID) REFERENCES tblSupplier(SupplierID)
+);
+
+create table tblSupplierPayment(
+	SupplierPaymentID INT AUTO_INCREMENT PRIMARY KEY, 
+	SupplierID INT,
+	AmountOwed INT DEFAULT NULL,
+	CheckNumber INT DEFAULT NULL,
+	FOREIGN KEY(SupplierID) REFERENCES tblSupplier(SupplierID)
+);
+
+create table tblPrinter(
+	PrinterID INT AUTO_INCREMENT PRIMARY KEY,
+	SupplierID INT,
+	AvgCost INT DEFAULT NULL,
+	AvgRating INT DEFAULT NULL,
+	FOREIGN KEY(SupplierID) REFERENCES tblSupplier(SupplierID)
+);
+
+insert into tblSupplier (SupplierName, Email, Address, PhoneNumber, CellPhoneNumber)
+values ('Dunder Mifflin', 'michael@dunder.com', '1725 Slough Avenue', 5039999999, 50499999998);
+
+insert into tblSupplier (SupplierName, Email, Address, PhoneNumber, CellPhoneNumber)
+values ('Types R Us', 'types@rus.ru', '1432 SW Kalashnikov Ave.', 4325436543, NULL);
+
+insert into tblSupplier (SupplierName, Email, Address, PhoneNumber, CellPhoneNumber)
+values ('Stereo-Typists', 'dontfukwitus@types.com', '11 Wall St, New York, NY 10005', 1010010010, NULL);
+
+insert into tblPrinter (SupplierID, AvgCost, AvgRating)
+select SupplierID, 300, 4
+from tblSupplier 
+where SupplierName = 'Dunder Mifflin';
+
+insert into tblTypesetter (SupplierID, AvgCost, AvgRating)
+select SupplierID, 350, 3
+from tblSupplier
+where SupplierName = 'Types R Us';
+
+insert into tblTypesetter (SupplierID, AvgCost, AvgRating)
+select SupplierID, 500, 2
+from tblSupplier
+where SupplierName = 'Stereo-Typists';
+
+insert into tblSupplierPayment (SupplierID, AmountOwed, CheckNumber)
+select SupplierID, 500, NULL
+from tblSupplier
+where SupplierName = 'Stereo-Typists';
+
