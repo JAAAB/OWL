@@ -70,10 +70,12 @@ function executeSuppliersQuery(query, callback) {
 function getSuppliersResult(query, callback) {
 	executeSuppliersQuery(query, function(err, rows) {
 		if (!err) {
-			callback(null, rows);
+			console.log("NO ERROR!!!"+rows);
+			//callback(null, rows);
 		}
 		else {
-			callback(true,err);
+			console.log("ERROR!!!");
+			//callback(true,err);
 		}
 	});
 }
@@ -92,9 +94,9 @@ app.get("/viewtable/s/:tableName", (req, res) => {
 	})	
 	*/
 
-	var queryString = 'SELECT * FROM ' + name; //setting query string with variable
+	var query = 'SELECT * FROM ' + name; //setting query string with variable
 	
-	getSuppliersResult(queryString);
+	getSuppliersResult(query);
 
 	/*
 	connection.query(queryString, (err, rows, fields) => { //running query
