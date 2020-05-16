@@ -2,7 +2,7 @@
 # This should assemble the databases and toss the data in.
 # Let me know if it doesn't.
 
-USER='root'
+USER='owl'
 INIT='init-supplier-db-assemble.sql'
 SECONDARY='secondary-project-db-assemble.sql'
 TERTIARY='tertiary-vews-db-addition.sql'

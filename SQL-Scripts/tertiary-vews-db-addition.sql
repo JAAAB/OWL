@@ -1,16 +1,18 @@
-use suppliers;
+USE suppliers;
 
 CREATE VIEW vewSuppliers
-AS 
-SELECT s.SupplierID, s.SupplierName, s.Email, 
-s.PhoneNumber, s.Address, IFNULL(t.AvgCost, p.AvgCost) AS AvgCost, 
-IFNULL(t.AvgRating, p.AvgRating) AS AvgRating, sp.AmountOwed,
+AS
+SELECT SupplierID, SupplierName, Email, PhoneNumber, Address,
+COALESCE (tblTypesetter.AvgRating, tblPrinter.AvgRating) AS AvgRating,
+COALESCE (tblTypesetter.AvgCost, tblPrinter.AvgCost) AS AvgCost,
+AmountOwed,
 CASE
-	WHEN p.PrinterID IS NULL THEN "Typesetter"
-	WHEN t.TypesetterID IS NULL THEN "Printer"
-	ELSE "ERROR! UNMATCHED SupplierID!!"
-END AS ServiceType
-FROM tblSupplier AS s
-JOIN tblTypesetter AS t ON t.SupplierID = s.SupplierID
-JOIN tblPrinter AS p ON p.SupplierID = s.SupplierID
-JOIN tblSupplierPayment as sp ON s.SupplierID = sp.SupplierID;
+	WHEN tblTypesetter.TypesetterID IS NULL THEN 'Printer'
+	WHEN tblPrinter.PrinterID IS NULL THEN 'Typesetter'
+	ELSE 'ERR or TS'
+END AS 'Service Type'
+FROM tblSupplier
+LEFT JOIN tblTypesetter USING (SupplierID)
+LEFT JOIN tblPrinter USING (SupplierID)
+LEFT JOIN tblSupplierPayment USING (SupplierID)
+ORDER BY SupplierID ASC;
