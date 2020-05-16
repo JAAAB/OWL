@@ -89,7 +89,7 @@ join tblAuthor as au on acc.AccountID = au.AccountID
 join tblContract as c on acc.AccountID = c.AccountID;
 
 insert into tblProject (AuthorID, ContractID, Title, Notes, isActive)
-select AuthorID, ContractID, 'Fe-man!', 'The ballad of He-man, but in an alternate reality!!!', 1)
+select au.AuthorID, c.ContractID, 'Fe-man!', 'The ballad of He-man, but in an alternate reality!!!', 1
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
 join tblContract as c on acc.AccountID = c.AccountID;
@@ -125,7 +125,7 @@ where Title = 'Fe-man!';
 insert into tblManuscriptVersionContent (ManuscriptVersionID, Content, Notes)
 select ManuscriptVersionID, 'CONTENT CONTENT CONTENT', 'WOO NICE JOB BOIS!'
 from tblManuscriptVersion as mv
-join tblManuscript as m on mv.ManuscriptID = m.ManuscriptID;
+join tblManuscript as m on mv.ManuscriptID = m.ManuscriptID
 join tblProject as p on p.ProjectID = m.ProjectID
 where p.Title = 'Fe-man!' and mv.ActiveFlag = 1;
 
