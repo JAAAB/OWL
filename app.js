@@ -55,5 +55,3 @@ var portNum = 3003;
 app.listen(portNum, () => {
 	console.log("Server up on port " + portNum)
 })
-
-
