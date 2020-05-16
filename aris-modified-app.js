@@ -49,14 +49,23 @@ function executeSuppliersQuery(query, callback) {
 		else if (connection) {
 			connection.query(query, function (err, rows, fields) { 
 				connection.release();
+				
+				// Debug log
+				console.log(query);
+				
 				if(err) {
 					console.log("Failed to fetch table: " + err);
 					res.sendStatus(500);
 					return callback(err, null);
 				}
 				//console.log("Fetching " + name + " table");
+				
+				// Rows contains data here, console.log proves....
 				console.log(rows);
-				results = rows;
+
+				var results = rows;
+
+				console.log("results: " + results);
 
 				return callback(null, rows);
 			});
@@ -97,7 +106,7 @@ app.get("/viewtable/s/:tableName", (req, res) => {
 
 	var query = 'SELECT * FROM ' + name; //setting query string with variable
 	
-	result = getSuppliersResult(query);
+	var result = getSuppliersResult(query);
 
 	console.log(result);
 
