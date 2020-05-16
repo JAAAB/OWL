@@ -70,8 +70,9 @@ function executeSuppliersQuery(query, callback) {
 function getSuppliersResult(query, callback) {
 	executeSuppliersQuery(query, function(err, rows) {
 		if (!err) {
-			console.log("NO ERROR!!!"+rows);
+			console.log("NO ERROR!!!");
 			//callback(null, rows);
+			return rows;
 		}
 		else {
 			console.log("ERROR!!!");
@@ -96,7 +97,11 @@ app.get("/viewtable/s/:tableName", (req, res) => {
 
 	var query = 'SELECT * FROM ' + name; //setting query string with variable
 	
-	getSuppliersResult(query);
+	result = getSuppliersResult(query);
+
+	console.log(result);
+
+	res.json(result);
 
 	/*
 	connection.query(queryString, (err, rows, fields) => { //running query
