@@ -50,7 +50,7 @@ function executeSuppliersQuery(query, callback) {
 		}
 		else if (connection) {
 			connection.query(query, function (err, rows, fields) { 
-				//connection.release();
+				connection.release();
 				
 				// Debug log
 				console.log(query);
@@ -76,7 +76,7 @@ function executeSuppliersQuery(query, callback) {
 	});
 }
 
-function getSuppliersResult(query) {
+function getSuppliersResult(query, callback) {
 	executeSuppliersQuery(query, function(err, rows) {
 		if (!err) {
 			console.log("NO ERROR!!!");
@@ -96,7 +96,7 @@ app.get("/viewtable/s/:tableName", (req, res) => {
 
 	var query = 'SELECT * FROM ' + name; //setting query string with variable
 	
-	var result = getSuppliersResult(query);
+	var result = getSuppliersResult(query, res);
 
 	console.log("Sending JSON data...");
 	

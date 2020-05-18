@@ -47,7 +47,9 @@ app.get("/viewtable/:tableName", (req, res) => {
 		results = await rows;
 		//res.json(results);
 	})
-	res.json(results);
+	// I changed the res.json(results) to this
+	res.send(JSON.stringify(results));
+
 	console.log(results);
 })
 
