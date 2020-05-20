@@ -16,6 +16,8 @@ app.get("/", (req, res) => {
 app.post('/project_create', (req, res) => {
 	console.log("Creating new project...");
 	console.log("Title = " + req.body.project_title);
+	console.log("Author = " + req.body.author);
+	console.log("Status = " + req.body.status);
 	res.end();
 })
 
