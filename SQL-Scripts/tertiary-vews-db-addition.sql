@@ -16,3 +16,18 @@ LEFT JOIN tblTypesetter USING (SupplierID)
 LEFT JOIN tblPrinter USING (SupplierID)
 LEFT JOIN tblSupplierPayment USING (SupplierID)
 ORDER BY SupplierID ASC;
+
+USE projects;
+
+CREATE VIEW vewProjects
+AS
+SELECT ProjectID, Title,
+CONCAT (FirstName, " ", LastName) AS 'Author',
+CASE
+	WHEN isActive THEN 'Active'
+	ELSE 'Inactive'
+END AS Status
+FROM tblProject
+LEFT JOIN tblAuthor USING (AuthorID)
+LEFT JOIN tblAccount USING (AccountID)
+ORDER BY ProjectID DESC;
