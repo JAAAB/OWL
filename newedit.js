@@ -18,6 +18,7 @@ app.post('/project_create', (req, res) => {
 	console.log("Title = " + req.body.project_title);
 	console.log("Author = " + req.body.author);
 	console.log("Status = " + req.body.status);
+	console.log("Pub Date = " + req.body.publication_date);
 	res.end();
 })
 
