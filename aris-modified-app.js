@@ -63,7 +63,7 @@ function executeSuppliersQuery(query, callback) {
 				//console.log("Fetching " + name + " table");
 				
 				// Rows contains data here, console.log proves....
-				console.log(rows);
+				//console.log(rows);
 				
 				//res.send(JSON.stringify(rows));
 
@@ -73,21 +73,7 @@ function executeSuppliersQuery(query, callback) {
 		else {
 			return callback(true, "No Connection");
 		}
-	});
-}
-
-function getSuppliersResult(query) {
-	executeSuppliersQuery(query, function(err, rows) {
-		if (!err) {
-			console.log("NO ERROR!!!");
-			//callback(null, rows);
-			return rows;
-		}
-		else {
-			console.log("ERROR!!!");
-			//callback(true, err);
-		}
-	});
+	})
 }
 
 app.get("/viewtable/s/:tableName", (req, res) => {
@@ -96,13 +82,24 @@ app.get("/viewtable/s/:tableName", (req, res) => {
 
 	var query = 'SELECT * FROM ' + name; //setting query string with variable
 	
-	var result = getSuppliersResult(query);
-
-	console.log("Sending JSON data...");
-	
-	res.setHeader('Content-Type', 'application/json');
-	res.send(JSON.stringify(result));
-})
+	var result = function (query) {
+    	executeSuppliersQuery(query, function(err, rows) {
+    	    if (!err) {
+                console.log(rows);
+    		    console.log("NO ERROR!!!");
+    	    
+	            res.setHeader('Content-Type', 'application/json');
+	            res.send(JSON.stringify(result));
+            }
+            else {
+                console.log(rows);
+    		    console.log("ERROR!!!");
+    		    return err;
+    	    }
+        })
+	    console.log("Sending JSON data...");
+    }
+});
 
 var portNum = 3003;
 app.listen(portNum, () => {
