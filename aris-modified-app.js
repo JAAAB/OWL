@@ -44,12 +44,17 @@ app.get("/", (req, res) => {
 })
 
 function executeSuppliersQuery(query, callback) {
+	console.log("Test1");
 	suppliersPool.getConnection(function (err, connection) {
+		console.log("Test2");
 		if (err) {
+			console.log("SUPPLIERS POOL ERR");
 			return callback(err, null);
 		}
 		else if (connection) {
+			console.log("Test3");
 			connection.query(query, function (err, rows, fields) { 
+				console.log("Test4");
 				//connection.release();
 				
 				// Debug log
@@ -66,11 +71,12 @@ function executeSuppliersQuery(query, callback) {
 				//console.log(rows);
 				
 				//res.send(JSON.stringify(rows));
-
+				console.log("Test5");
 				return callback(null, rows);
 			});
 		}
 		else {
+			console.log("Test6");
 			return callback(true, "No Connection");
 		}
 	})
@@ -81,15 +87,18 @@ app.get("/viewtable/s/:tableName", (req, res) => {
 	console.log("Viewing table: " + name);
 
 	var query = 'SELECT * FROM ' + name; //setting query string with variable
-	
+	console.log("Query = " + query);
 	var result = function (query) {
     	executeSuppliersQuery(query, function(err, rows) {
+	    //console.log("Test7");
     	    if (!err) {
+		console.log("Test8");
                 console.log(rows);
     		    console.log("NO ERROR!!!");
     	    
 	            res.setHeader('Content-Type', 'application/json');
-	            res.send(JSON.stringify(result));
+	            console.log("results are: " + results);
+		    res.send(JSON.stringify(result));
             }
             else {
                 console.log(rows);
