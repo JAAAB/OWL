@@ -30,4 +30,4 @@ END AS Status
 FROM tblProject
 LEFT JOIN tblAuthor USING (AuthorID)
 LEFT JOIN tblAccount USING (AccountID)
-ORDER BY ProjectID DESC;
+ORDER BY Status, Title DESC;
