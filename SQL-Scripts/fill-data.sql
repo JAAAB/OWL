@@ -83,7 +83,7 @@ from tblAccount
 where FullName like 'Baskin%Robbins';
 
 insert into tblProject (AuthorID, ContractID, Title, Notes, isActive)
-select AuthorID, ContractID, 'Dragon-Bjorn', 'A story about a Sweedish man making love to an American dragon', 1
+select AuthorID, ContractID, 'Dragon-Bjorn', 'A story about a Swedish man making love to an American dragon', 1
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
 join tblContract as c on acc.AccountID = c.AccountID;
