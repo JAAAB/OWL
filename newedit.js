@@ -1,44 +1,30 @@
 //loading our app server
 const express = require('express')
 const mysql = require('mysql')
+const bodyParser = require('body-parser')
 const app = express()
-const path = require('path')
+var util = require('./modules/util.js')
 
-function buildHtml(req) { //This is a test and isn't implemented at all
-	var header = '';
-	var body = '';
-	var returnString = '';
-
-	header = 'TEST';
-	body = 'test';
-
-	returnString = '<!DOCTYPE html>'
-		+ '<html><head>' + header + '</head><body>' + body + '</body></html>';
-
-	return returnString;
-};
-
+app.use(express.static('./public')) //this allows us to nav to html files via thier url
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.get("/", (req, res) => {
 	console.log("Responding to root route");
-	//res.send("This is the root route");
+	res.send("This is root");
+})
 
-	//res.sendFile('public/neweditprojects.html');
-	res.sendFile(path.join(__dirname, '/public', 'neweditprojects.html'));
+app.post('/project_create', (req, res) => {
+	console.log("Creating new project...");
+	console.log("Title = " + req.body.project_title);
+	res.end();
 })
 
 app.get("/viewtable/:tableName", (req, res) => {
 	var results;
 	const name = req.params.tableName;
-	console.log("Viewing table: " + name);
+	console.log("Viewing table: " + name);	
 
-	const connection = mysql.createConnection({ //creating connection to mysql db
-		host: 'localhost',
-		user: 'owl',
-		password: 'jaaab',
-		database: 'suppliers'
-	})	
-
+	var connection = util.getSuppliersConnection();
 	var queryString = 'SELECT * FROM ' + name; //setting query string with variable
 	connection.query(queryString, async (err, rows, fields) => { //running query
 		if(err) {
