@@ -87,14 +87,14 @@ select AuthorID, ContractID, 'Dragon-Bjorn', 'A story about a Swedish man making
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
 join tblContract as c on acc.AccountID = c.AccountID
-where acc.FullName like 'Jerry%Smith';
+where au.AuthorID = 3;
 
 insert into tblProject (AuthorID, ContractID, Title, Notes, isActive)
 select au.AuthorID, c.ContractID, 'Fe-man!', 'The ballad of He-man, but in an alternate reality!!!', 1
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
 join tblContract as c on acc.AccountID = c.AccountID
-where acc.FullName like 'Jerry%Smith';
+where au.AuthorID = 2;
 
 insert into tblManuscript (ProjectID, InactiveDate)
 select ProjectID, NULL

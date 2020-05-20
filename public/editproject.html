@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color:darkgrey"> 
+
+	<p style="font-size:small" "font-family:verdana;">Main menu > Projects > New/Edit Project</p>
+	<h1 style="font-family:verdana;">New/Edit Project</h1>
+	<p>My first paragraph.</p>
+
+	<div>
+		Fill out the data below:
+		<form action="/project_create" method="POST">
+			<input placeholder="Author Name" name="author_name"/>
+			<input placeholder="Project Title" name="project_title"/>
+			<input list="authors" name="author">
+			<datalist id="authors">
+				<option value="Jim Testerson">
+				<option value="Mikhael Beta">
+				<option value="Toni Progress">
+			</datalist>
+			<button>Submit</button>
+
+		</form>
+	</div>
+
+</body>
+</html>

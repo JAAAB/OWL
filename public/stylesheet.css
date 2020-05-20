@@ -1,0 +1,19 @@
+body{
+	background-color: darkgrey;
+	font-size: 12px;
+	font-family: verdana;
+}
+
+label{
+	width: 120px;
+	display: inline-block;
+}
+
+input{
+	padding: 6px;
+	font-size:12px;
+	border-radius:4px;
+	margin:8px;
+}
+
+

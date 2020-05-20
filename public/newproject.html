@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		Main Menu > Projects > New/Edit Project
+		<link rel="stylesheet" href="stylesheet.css">
+		<!--<script src = "../modules/util.js"></script> -->
+	</head>
+<body> 
+	<h1>New/Edit Project</h1>
+
+	<div>
+		<form action="/project_create" method="POST">
+			<label for="project_title">Project Tile:</label>
+			<input style= "width: 400px" placeholder="Project Title" name="project_title"/><br>
+
+			<label for="author">Author:</label>
+			<input style= "width: 200px" placeholder= "Author Name" list="authors" name="author"><br>
+			<datalist id="authors">
+				<option value="Jerry Smith">
+				<option value="Rick Writer">
+				<option value="Baskin Robbins">
+			</datalist>
+
+
+			<label for="status">Status:</label>
+			<input style="width:105px" placeholder="Inactive" list="status" name="status">
+			<datalist id="status">
+				<option value="Active">
+				<option value="Inactive">
+			</datalist>
+
+			<label for="date">Publication Date:</label>
+			<input type="date" id="date" name="publication_date"><br>
+			
+
+
+			<button>Submit</button>
+
+
+
+
+
+
+		<!--
+		<script>
+			var mysql = require('mysql');
+			var authorNames = new Array();
+			var util = require('../modules/util.js');
+			
+			var queryString = "SELECT CONCAT(FirstName, ' ', LastName) AS Name FROM tblAccount JOIN tblAuthor ON tblAuthor.AccountID = tblAccount.AccountID;"
+			var connection = util.getProjectsConnection();
+connection.query(queryString, async (err, rows, fields) => {
+				if(err){
+					console.log("FAILED TO GRAB AUTHORS: " + err);
+					return;
+				}
+				console.log('GOT AUTHORS');
+			})
+
+		</script>
+		-->
+		</form>
+	</div>
+
+</body>
+</html>
