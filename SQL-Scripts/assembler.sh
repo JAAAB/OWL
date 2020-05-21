@@ -23,12 +23,10 @@ SECONDARY='secondary-project-db-assemble.sql'
 TERTIARY='tertiary-vews-db-addition.sql'
 DATA='fill-data.sql'
 
-echo $DIR
+mysql -u $USER < "${SCRIPTPATH}reset.sql" > "${SCRIPTPATH}reset-output.txt"
 
-mysql -u $USER < "${SCRIPTPATH}reset.sql" > reset-output.txt
+mysql -u $USER < "${SCRIPTPATH}${INIT}" > "${SCRIPTPATH}init-output.txt"
+mysql -u $USER < "${SCRIPTPATH}${SECONDARY}" > "${SCRIPTPATH}secondary-output.txt"
+mysql -u $USER < "${SCRIPTPATH}${DATA}" > "${SCRIPTPATH}data-output.txt"
 
-mysql -u $USER < "${SCRIPTPATH}${INIT}" > init-output.txt
-mysql -u $USER < "${SCRIPTPATH}${SECONDARY}" > secondary-output.txt
-mysql -u $USER < "${SCRIPTPATH}${DATA}" > data-output.txt
-
-mysql -u $USER < "${SCRIPTPATH}${TERTIARY}" > tertiary-output.txt
+mysql -u $USER < "${SCRIPTPATH}${TERTIARY}" > "${SCRIPTPATH}tertiary-output.txt"
