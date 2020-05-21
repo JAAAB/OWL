@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const app = express()
 var util = require('./modules/util.js')
 
-app.use(express.static('./public')) //this allows us to nav to html files via thier url
+app.use(express.static('./public')) //this allows us to nav to html files via their url
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.get("/", (req, res) => {
