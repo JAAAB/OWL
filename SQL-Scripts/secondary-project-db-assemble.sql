@@ -41,6 +41,8 @@ create table tblProject(
 	ContractID INT,
 	Title VARCHAR(50),
 	Notes VARCHAR(500),
+	Edition DECIMAL,
+	ApprovalDate DATE,
 	isActive BOOLEAN NOT NULL,
 	FOREIGN KEY(AuthorID) REFERENCES tblAuthor(AuthorID),
 	FOREIGN KEY(ContractID) REFERENCES tblContract(ContractID)

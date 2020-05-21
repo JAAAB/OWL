@@ -73,7 +73,7 @@ from tblAccount
 where FullName like 'Baskin%Robbins';
 
 insert into tblContract (AccountID, Requirements, Terms)
-select AccountID, 'MUST HAVE DONE BY FRIDAY THIS WEEK!!!', 'No pay until $$ is in bruh'
+select AccountID, '', 'No pay until $$ is in bruh'
 from tblAccount
 where FullName like 'Rick%Writer';
 
@@ -82,15 +82,15 @@ select AccountID, 'Relax bro. Finish whenever.', 'I''ll pay you as it goes'
 from tblAccount
 where FullName like 'Baskin%Robbins';
 
-insert into tblProject (AuthorID, ContractID, Title, Notes, isActive)
-select AuthorID, ContractID, 'Dragon-Bjorn', 'A story about a Swedish man making love to an American dragon', 1
+insert into tblProject (AuthorID, ContractID, Title, Notes, Edition, ApprovalDate, isActive)
+select AuthorID, ContractID, 'Dragon-Bjorn', 'A story about a Swedish man making love to an American dragon', 2.2, '2018-03-03', 1
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
 join tblContract as c on acc.AccountID = c.AccountID
 where au.AuthorID = 3;
 
-insert into tblProject (AuthorID, ContractID, Title, Notes, isActive)
-select au.AuthorID, c.ContractID, 'Fe-man!', 'The ballad of He-man, but in an alternate reality!!!', 1
+insert into tblProject (AuthorID, ContractID, Title, Notes, Edition, ApprovalDate, isActive)
+select au.AuthorID, c.ContractID, 'Fe-man!', 'The ballad of He-man, but in an alternate reality!!!', 1.5, '2020-01-25', 1
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
 join tblContract as c on acc.AccountID = c.AccountID
