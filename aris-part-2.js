@@ -1,4 +1,5 @@
 const mariadb = require('mariadb');
+var Promise = require('promise');
 const pool = mariadb.createPool({
     host:               'localhost',
     user:               'owl',
@@ -73,12 +74,12 @@ app.get('/insert-demo-data', (req, res) => {
 
 async function selectTableData(res, name) {
     let conn;
-    console.log("At least I made it here...");
+    //console.log("At least I made it here...");
 
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query("SELECT * FROM " + name + ";");
-        console.log(JSON.stringify(rows));
+        rows = await conn.query(`SELECT * FROM ${name};`);
+        //console.log(JSON.stringify(rows));
     } catch (err) {
         console.log("ERROR!!!");
         throw err;
@@ -86,16 +87,20 @@ async function selectTableData(res, name) {
         if (conn) {
             conn.end();
         }
-        return rows;
+        return res.send(JSON.stringify(rows));
     }
 }
 
 app.get("/viewtable/:tableName", (req, res) => {
 	let error;
 	const name = req.params.tableName;
-	console.log("Viewing table: " + name);
-    var rows = new Promise(selectTableData(res,name));
-    
+
+    console.log("Viewing table: " + name);
+
+    let rows;
+
+    selectTableData(res, name);
+
     //
     //
     //
@@ -118,10 +123,10 @@ app.get("/viewtable/:tableName", (req, res) => {
 		res.json(results);
 	})
 	// I changed the res.json(results) to this
-	res.send(JSON.stringify(results));
+	*/
+    //res.send(JSON.stringify(rows));
 
-	console.log(results);
-    */
+	//console.log(rows);
 })
 
 var portNum = 3003;
