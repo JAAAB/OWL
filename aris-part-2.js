@@ -1,6 +1,16 @@
 const mariadb = require('mariadb');
-var Promise = require('promise');
-const pool = mariadb.createPool({
+
+
+const projectsPool = mariadb.createPool({
+    host:               'localhost',
+    user:               'owl',
+    password:           'jaaab',
+    connectionLimit:    5,
+    database:           'projects',
+    debug:              false
+});
+
+const suppliersPool = mariadb.createPool({
     host:               'localhost',
     user:               'owl',
     password:           'jaaab',
@@ -8,24 +18,6 @@ const pool = mariadb.createPool({
     database:           'suppliers',
     debug:              false
 });
-
-async function asyncFunction() {
-    let conn;
-    console.log("This works");
-    try {
-            conn = await pool.getConnection();
-            const rows = await conn.query("SELECT * from vewSuppliers;");
-            console.log(JSON.stringify(rows));
-    } catch (err) {
-            throw err;
-    } finally {
-            if (conn) return conn.end();
-    }
-}
-
-//asyncFunction();
-
-// Actual program here
 
 //loading our app server
 const express = require('express')
@@ -41,8 +33,6 @@ app.get("/", (req, res) => {
 	console.log("Responding to root route");
 	res.send("This is root");
 })
-
-
 
 app.post('/project_create', (req, res) => {
 	console.log("Creating new project...");
@@ -72,14 +62,12 @@ app.get('/insert-demo-data', (req, res) => {
     res.send("Data inserted.");
 });
 
-async function selectTableData(res, name) {
+async function selectSuppliersTableData(res, name) {
     let conn;
-    //console.log("At least I made it here...");
 
     try {
-        conn = await pool.getConnection();
+        conn = await suppliersPool.getConnection();
         rows = await conn.query(`SELECT * FROM ${name};`);
-        //console.log(JSON.stringify(rows));
     } catch (err) {
         console.log("ERROR!!!");
         throw err;
@@ -91,7 +79,24 @@ async function selectTableData(res, name) {
     }
 }
 
-app.get("/viewtable/:tableName", (req, res) => {
+async function selectProjectsTableData(res, name) {
+    let conn;
+
+    try {
+        conn = await projectsPool.getConnection();
+        rows = await conn.query(`SELECT * FROM ${name};`);
+    } catch (err) {
+        console.log("ERROR!!!");
+        throw err;
+    } finally {
+        if (conn) {
+            conn.end();
+        }
+        return res.send(JSON.stringify(rows));
+    }
+}
+
+app.get("/viewtable/s/:tableName", (req, res) => {
 	let error;
 	const name = req.params.tableName;
 
@@ -99,7 +104,29 @@ app.get("/viewtable/:tableName", (req, res) => {
 
     let rows;
 
-    selectTableData(res, name);
+    selectSuppliersTableData(res, name);
+
+})
+
+app.get("/viewtable/p/:tableName", (req, res) => {
+	let error;
+	const name = req.params.tableName;
+
+    console.log("Viewing table: " + name);
+
+    let rows;
+
+    selectProjectsTableData(res, name);
+
+})
+
+var portNum = 3003;
+app.listen(portNum, () => {
+	console.log("Server up on port " + portNum)
+})
+
+
+// Previously on line 17 of function selectSuppliersTableData()
 
     //
     //
@@ -127,9 +154,3 @@ app.get("/viewtable/:tableName", (req, res) => {
     //res.send(JSON.stringify(rows));
 
 	//console.log(rows);
-})
-
-var portNum = 3003;
-app.listen(portNum, () => {
-	console.log("Server up on port " + portNum)
-})
