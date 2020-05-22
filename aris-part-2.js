@@ -149,7 +149,7 @@ app.get("/viewtable/p/:tableName", (req, res) => {
 
 });
 
-app.get("/view-project/:projectID", (req, res) => {
+app.get("/viewproject/:projectID", (req, res) => {
     let error;
     const projectID = req.params.projectID;
 
