@@ -13,14 +13,19 @@
 			<label for="project_title">Project Tile:</label>
 			<input style= "width: 400px" placeholder="Project Title" name="project_title"/><br>
 
+			<label for="projectid">Project ID:</label>
+			<input style= "width: 400px" placeholder="0000000000000000000000" name="projectid"/><br>
+
 			<label for="author">Author:</label>
-			<input style= "width: 200px" placeholder= "Author Name" list="authors" name="author"><br>
+			<input style= "width: 200px" placeholder= "Author Name" list="authors" name="author">
 			<datalist id="authors">
 				<option value="Jerry Smith">
 				<option value="Rick Writer">
 				<option value="Baskin Robbins">
 			</datalist>
 
+			<label style= "width: 60px" for="edition">Edition:</label>
+			<input style= "width:100px" name="edition"><br>
 
 			<label for="status">Status:</label>
 			<input style="width:105px" placeholder="Inactive" list="status" name="status">
@@ -29,10 +34,34 @@
 				<option value="Inactive">
 			</datalist>
 
-			<label for="date">Publication Date:</label>
-			<input type="date" id="date" name="publication_date"><br>
-			
+			<label for="date">Approval Date:</label>
+			<input type="date" id="date" name="approval_date"><br>
 
+			<label for="contract">Contract:</label>
+			<input list="contracts" placeholder="Select a Contract" name="contract">
+			<datalist id="contracts">
+				<option value="2 Years">
+				<option value="5 Years">
+				<option value="10 Years">
+			</datalist>
+			
+			<label style= "width:107px" for="sales">Total Sales:</label>
+			<input name="sales"><br>
+
+			<!-- Below this line is just for decoration, no functionality -->
+
+			<label style= "width:128px" for="manuscripts">Manuscripts:</label>
+			<textarea id="manuscripts" rows="6" cols="50">
+			</textarea><br>
+			<label for="manuupload">Upload Manuscript...</label>
+			<input type="file" name="manuupload"><br>
+			
+			<label style= "width:128px" for="digitalmaterials">Digital Materials:</label>
+			<textarea id="digitalmaterials" rows="4" cols="50">
+			</textarea><br>
+			<label for="matsupload">Upload Materials...</label>
+			<input type="file" name="matsupload"><br>
+			
 
 			<button>Submit</button>
 

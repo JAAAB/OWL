@@ -27,12 +27,14 @@ create table tblAuthor(
 	FOREIGN KEY(AccountID) REFERENCES tblAccount(AccountID)
 );
 
+/*I made some changes here, now contracts are independent and have their own ID, this means we essentially assign standardized contracts on a per project basis*/
 create table tblContract(
 	ContractID INT AUTO_INCREMENT PRIMARY KEY,
-	AccountID INT,/* Added */
-	Requirements MEDIUMTEXT,
-	Terms MEDIUMTEXT,
-	FOREIGN KEY(AccountID) REFERENCES tblAccount(AccountID)
+	/*AccountID INT,/* Added */
+	Notes MEDIUMTEXT,
+	/*Terms MEDIUMTEXT,*/
+	Years INT
+	/*FOREIGN KEY(AccountID) REFERENCES tblAccount(AccountID)*/
 );
 
 create table tblProject(

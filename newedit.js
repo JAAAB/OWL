@@ -18,10 +18,13 @@ app.get("/", (req, res) => {
 app.post('/project_create', (req, res) => {
 	console.log("Creating new project...");
 	console.log("Title = " + req.body.project_title);
+	console.log("Project ID = " + req.body.projectid);
 	console.log("Author = " + req.body.author);
 	console.log("Status = " + req.body.status);
-	console.log("Pub Date = " + req.body.publication_date);
-
+	console.log("Approval Date = " + req.body.approval_date);
+	console.log("Edition = " + req.body.edition);
+	console.log("ContractID = " + req.body.contract);
+	//console.log("Total Sales = " + req.body.sales); //this probably should only be output, not input
 	
 
 	res.end();

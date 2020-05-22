@@ -72,28 +72,36 @@ select AccountID
 from tblAccount
 where FullName like 'Baskin%Robbins';
 
-insert into tblContract (AccountID, Requirements, Terms)
-select AccountID, '', 'No pay until $$ is in bruh'
-from tblAccount
-where FullName like 'Rick%Writer';
+insert into tblContract (Notes, Years)
+values ('Print and EBook', 2);
 
-insert into tblContract (AccountID, Requirements, Terms)
-select AccountID, 'Relax bro. Finish whenever.', 'I''ll pay you as it goes'
-from tblAccount
-where FullName like 'Baskin%Robbins';
+insert into tblContract (Notes, Years)
+values ('', 5);
+
+insert into tblContract (Notes, Years)
+values ('Exclusive deal', 10);
+
+
+--insert into tblContract (AccountID, Requirements, Terms)
+--select AccountID, '2 Books', '2 Year'
+--from tblAccount
+--where FullName like 'Rick%Writer';
+
+--insert into tblContract (AccountID, Requirements, Terms)
+--select AccountID, '4 Books', '5 Year'
+--from tblAccount
+--where FullName like 'Baskin%Robbins';
 
 insert into tblProject (AuthorID, ContractID, Title, Notes, Edition, ApprovalDate, isActive)
-select AuthorID, ContractID, 'Dragon-Bjorn', 'A story about a Swedish man making love to an American dragon', 2.2, '2018-03-03', 1
+select AuthorID, 1, 'Dragon-Bjorn', 'A story about a Swedish man making love to an American dragon', 2.2, '2018-03-03', 1
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
-join tblContract as c on acc.AccountID = c.AccountID
 where au.AuthorID = 3;
 
 insert into tblProject (AuthorID, ContractID, Title, Notes, Edition, ApprovalDate, isActive)
-select au.AuthorID, c.ContractID, 'Fe-man!', 'The ballad of He-man, but in an alternate reality!!!', 1.5, '2020-01-25', 1
+select au.AuthorID, 2, 'Fe-man!', 'The ballad of He-man, but in an alternate reality!!!', 1.5, '2020-01-25', 1
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
-join tblContract as c on acc.AccountID = c.AccountID
 where au.AuthorID = 2;
 
 insert into tblManuscript (ProjectID, InactiveDate)
