@@ -1,24 +1,97 @@
 <!DOCTYPE html>
 <html>
-<body style="background-color:darkgrey"> 
-
-	<p style="font-size:small" "font-family:verdana;">Main menu > Projects > New/Edit Project</p>
-	<h1 style="font-family:verdana;">New/Edit Project</h1>
-	<p>My first paragraph.</p>
+	<head>
+		Main Menu > Projects > New/Edit Project
+		<link rel="stylesheet" href="stylesheet.css">
+		<!--<script src = "../modules/util.js"></script> -->
+	</head>
+<body> 
+	<h1>New/Edit Project</h1>
 
 	<div>
-		Fill out the data below:
 		<form action="/project_create" method="POST">
-			<input placeholder="Author Name" name="author_name"/>
-			<input placeholder="Project Title" name="project_title"/>
-			<input list="authors" name="author">
+			<label for="project_title">Project Tile:</label>
+			<input style= "width: 400px" placeholder="Project Title" name="project_title"/><br>
+
+			<label for="projectid">Project ID:</label>
+			<input style= "width: 400px" placeholder="0000000000000000000000" name="projectid"/><br>
+
+			<label for="author">Author:</label>
+			<input style= "width: 200px" placeholder= "Author Name" list="authors" name="author">
 			<datalist id="authors">
-				<option value="Jim Testerson">
-				<option value="Mikhael Beta">
-				<option value="Toni Progress">
+				<option value="Jerry Smith">
+				<option value="Rick Writer">
+				<option value="Baskin Robbins">
 			</datalist>
+
+			<label style= "width: 60px" for="edition">Edition:</label>
+			<input style= "width:100px" name="edition"><br>
+
+			<label for="status">Status:</label>
+			<input style="width:105px" placeholder="Inactive" list="status" name="status">
+			<datalist id="status">
+				<option value="Active">
+				<option value="Inactive">
+			</datalist>
+
+			<label for="date">Approval Date:</label>
+			<input type="date" id="date" name="approval_date"><br>
+
+			<label for="contract">Contract (years):</label>
+			<input list="contracts" placeholder="Select a Length" name="contract">
+			<datalist id="contracts">
+				<option value="2">
+				<option value="5">
+				<option value="10">
+			</datalist>
+			
+			<label style= "width:107px" for="sales">Total Sales:</label>
+			<input name="sales"><br>
+
+			<label style= "width:128px" for="notes">Description:</label>
+			<textarea id="notes" rows="6" cols="50">
+			</textarea><br><br>
+
+			<!-- Below this line is just for decoration, no functionality -->
+
+			<label style= "width:128px" for="manuscripts">Manuscripts:</label>
+			<textarea id="manuscripts" rows="6" cols="50">
+			</textarea><br>
+			<label for="manuupload">Upload Manuscript...</label>
+			<input type="file" name="manuupload"><br>
+			
+			<label style= "width:128px" for="digitalmaterials">Digital Materials:</label>
+			<textarea id="digitalmaterials" rows="4" cols="50">
+			</textarea><br>
+			<label for="matsupload">Upload Materials...</label>
+			<input type="file" name="matsupload"><br>
+			
+
 			<button>Submit</button>
 
+
+
+
+
+
+		<!--
+		<script>
+			var mysql = require('mysql');
+			var authorNames = new Array();
+			var util = require('../modules/util.js');
+			
+			var queryString = "SELECT CONCAT(FirstName, ' ', LastName) AS Name FROM tblAccount JOIN tblAuthor ON tblAuthor.AccountID = tblAccount.AccountID;"
+			var connection = util.getProjectsConnection();
+connection.query(queryString, async (err, rows, fields) => {
+				if(err){
+					console.log("FAILED TO GRAB AUTHORS: " + err);
+					return;
+				}
+				console.log('GOT AUTHORS');
+			})
+
+		</script>
+		-->
 		</form>
 	</div>
 

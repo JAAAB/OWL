@@ -41,7 +41,7 @@ create table tblProject(
 	ProjectID INT AUTO_INCREMENT PRIMARY KEY,
 	AuthorID INT,
 	ContractID INT,
-	Title VARCHAR(50),
+	Title VARCHAR(500),
 	Notes VARCHAR(500),
 	Edition DECIMAL,
 	ApprovalDate DATE,

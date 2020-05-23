@@ -13,8 +13,10 @@
 			<label for="project_title">Project Tile:</label>
 			<input style= "width: 400px" placeholder="Project Title" name="project_title"/><br>
 
+			<!-- This is not going to be an option when creating a new record
 			<label for="projectid">Project ID:</label>
 			<input style= "width: 400px" placeholder="0000000000000000000000" name="projectid"/><br>
+			-->
 
 			<label for="author">Author:</label>
 			<input style= "width: 200px" placeholder= "Author Name" list="authors" name="author">
@@ -37,16 +39,23 @@
 			<label for="date">Approval Date:</label>
 			<input type="date" id="date" name="approval_date"><br>
 
-			<label for="contract">Contract:</label>
-			<input list="contracts" placeholder="Select a Contract" name="contract">
+			<label for="contract">Contract (years):</label>
+			<input list="contracts" placeholder="Select a Length" name="contract">
 			<datalist id="contracts">
-				<option value="2 Years">
-				<option value="5 Years">
-				<option value="10 Years">
-			</datalist>
-			
+				<option value="2">
+				<option value="5">
+				<option value="10">
+			</datalist><br>
+		
+			<!-- This is not going to be an option when creating a new record
 			<label style= "width:107px" for="sales">Total Sales:</label>
-			<input name="sales"><br>
+			<input name="sales">
+			-->
+
+			<label for="notes">Project Tile:</label>
+			<input style= "width: 400px" placeholder="Project description..." name="notes">
+
+			<br><br>
 
 			<!-- Below this line is just for decoration, no functionality -->
 
