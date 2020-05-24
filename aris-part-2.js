@@ -110,7 +110,10 @@ async function selectProjectsTableData(res, name, id) {
         }
         console.log(`Returning rows...`);
 
-        buildTable(res,rows);
+        if (id !== null) {
+            buildTable(res,rows);
+        }
+        return res.send(JSON.stringify(rows));
     }
 }
 
@@ -225,7 +228,7 @@ app.get("/viewtable/s/:tableName", (req, res) => {
 
     let rows;
 
-    selectSuppliersTableData(res, name);
+    selectSuppliersTableData(res, name, null);
 
 });
 

@@ -1,15 +1,38 @@
+<!DOCTYPE html>
 <html>
-  <head>
-  </head>
-  <body>
-    <div id="container">Loading...</div>
-    <script src="/socket.io/socket.io.js"></script>
+	<head>
+		Main Menu > Projects > View Project 
+        <!--<link rel="stylesheet" href="stylesheet.css"> -->
+		<!--<script src = "../modules/util.js"></script> -->
+	</head>
+  <body>    
+  </body>
+</html>
+<body> 
+	<h1>View Project</h1>
+
+    <div id="container">
+        Loading...
+    </div>
+		
+	<script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io();
-      socket.on('dbResponse', (rows) => {
-        console.log("Working in HTML...");
-        document.getElementById('container').innerHTML = `Here are the ${rows.length}` 
+        var socket = io();
+        socket.on('dbResponse', (rows) => {
+            console.log("Working in HTML...");
+            document.getElementById('container').innerHTML = '';
+            document.getElementById('container').innerHTML += 'table style="width:100%">';
+            document.getElementById('container').innerHTML += '<tr>';
+            rows.map((row) => {
+                document.getElementById('container').innerHTML += '<tr>';
+                document.getElementById('container').innerHTML += '
+                        `<th>Title</th><td>${row.Title}</td>`
+                document.getElementByID('container').innerHTML += `<div class="row"><span
+                        class="notes">${row.Notes}</span></div>`
+        });
       });
     </script>
-  </body>
+    </div>
+
+</body>
 </html>
