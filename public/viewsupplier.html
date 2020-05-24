@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		Main Menu > Suppliers > View Supplier 
+        <!--<link rel="stylesheet" href="stylesheet.css"> -->
+		<!--<script src = "../modules/util.js"></script> -->
+	</head>
+  <body>    
+  </body>
+</html>
+<body> 
+	<h1>View Supplier</h1>
+
+    <div id="container">
+        Loading...
+    </div>
+		
+	<script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on('dbResponse', (rows) => {
+            console.log("Working in HTML...");
+            document.getElementById('container').innerHTML = '';
+            document.getElementById('container').innerHTML += '<table style="width:100%">';
+            document.getElementById('container').innerHTML += '<tr>';
+            document.getElementById('container').innerHTML += '<th>SupplierID</th>';
+            document.getElementById('container').innerHTML += '<th></th>';
+            document.getElementById('container').innerHTML += '<th></th>';
+            document.getElementById('container').innerHTML += '<th></th>';
+            document.getElementById('container').innerHTML += '<th></th>';
+            document.getElementById('container').innerHTML += '<th></th>';
+            document.getElementById('container').innerHTML += '<th></th>';
+            document.getElementById('container').innerHTML += '<th></th>';
+            document.getElementById('container').innerHTML += '</tr>';
+
+            rows.map((row) => {
+                document.getElementById('container').innerHTML += '<tr>';
+                document.getElementById('container').innerHTML += `<td>${row.SupplierID}</td>`
+                document.getElementById('container').innerHTML += `<td><td>`
+                document.getElementById('container').innerHTML += `<td><td>`
+        });
+      });
+    </script>
+    </div>
+
+</body>
+</html>
