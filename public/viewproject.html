@@ -1,47 +1,34 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		Main Menu > Projects > View Project 
-        <!--<link rel="stylesheet" href="stylesheet.css"> -->
-		<!--<script src = "../modules/util.js"></script> -->
-	</head>
-  <body>    
-  </body>
-</html>
+<head>
+  Main Menu > Projects > View Project 
+  <!--<link rel="stylesheet" href="stylesheet.css"> -->
+  <!--<script src = "../modules/util.js"></script> -->
+</head>
 <body> 
-	<h1>View Project</h1>
+  <h1>View Project</h1>
 
-    <div id="container">
-        Loading...
-    </div>
-		
-	<script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-        socket.on('dbResponse', (rows) => {
-            console.log("Working in HTML...");
-            document.getElementById('container').innerHTML = '';
-            document.getElementById('container').innerHTML += '<table style="width:100%">';
-            document.getElementById('container').innerHTML += '<tr>';
-            document.getElementById('container').innerHTML += '<th>ProjectID</th>';
-            document.getElementById('container').innerHTML += '<th>AuthorID</th>';
-            document.getElementById('container').innerHTML += '<th>ContractID</th>';
-            document.getElementById('container').innerHTML += '<th>Title</th>';
-            document.getElementById('container').innerHTML += '<th>Notes</th>';
-            document.getElementById('container').innerHTML += '<th>Edition</th>';
-            document.getElementById('container').innerHTML += '<th>ApprovalDate</th>';
-            document.getElementById('container').innerHTML += '<th>isActive</th>';
-            document.getElementById('container').innerHTML += '</tr>';
+  <div id="container">
+    Loading...
+  </div>
 
-            rows.map((row) => {
-                document.getElementById('container').innerHTML += '<tr>';
-                document.getElementById('container').innerHTML += `<td>${row.ProjectID}</td>`
-                document.getElementById('container').innerHTML += `<td>${row.AuthorID}</td>`
-                document.getElementById('container').innerHTML += `<td>${row.ContractID}</td>`
-        });
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    socket.on('dbResponse', (rows) => {
+      console.log("Working in HTML...");
+
+      document.getElementById('container').innerHTML = '';
+      let renderedTable = `<table style="width:100%"><tr><th>ProjectID</th><th>AuthorID</th><th>ContractID</th><th>Title</th><th>Notes</th><th>Edition</th><th>ApprovalDate</th><th>isActive</th></tr>`
+
+      rows.map((row) => { 
+        renderedTable += `<tr><td>${row.ProjectID}</td><td>${row.AuthorID}</td><td>${row.ContractID}</td></tr>`;
       });
-    </script>
-    </div>
+      renderedTable += `</table>`;
+      document.getElementById('container').innerHTML = renderedTable;
+      console.log(renderedTable);
+    });
+  </script>
 
 </body>
 </html>
