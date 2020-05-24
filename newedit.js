@@ -13,7 +13,10 @@ app.get("/", (req, res) => {
 	res.send("This is root");
 })
 
+app.get('/editproject/:projectid', (req, res) => {
+	
 
+})
 
 app.post('/project_create', (req, res) => {
 	console.log("Creating new project...");
@@ -50,9 +53,6 @@ app.post('/project_create', (req, res) => {
 	
 	console.log(queryString);
 
-
-
-
 	var conn = util.getProjectsConnection();
 	conn.query(queryString, (err, rows, fields) => { //running query
 		if(err) {
@@ -62,9 +62,9 @@ app.post('/project_create', (req, res) => {
 
 		}
 		console.log("New Project Inserted.");
+		res.redirect("/");
 		res.end();
 	});
-	//res.end();
 })
 
 app.get("/viewtable/:tableName", (req, res) => {
@@ -95,3 +95,4 @@ var portNum = 3003;
 app.listen(portNum, () => {
 	console.log("Server up on port " + portNum)
 })
+
