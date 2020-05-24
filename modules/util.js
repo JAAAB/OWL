@@ -24,10 +24,7 @@ function getSuppliersConnection(){
 	})
 }
 
-module.exports = {
-	getProjectsConnection: getProjectsConnection,
-	getSuppliersConnection: getSuppliersConnection
-}
+
 
 async function selectSuppliersTableData(res, name, id) {
     let conn;
@@ -150,3 +147,9 @@ function buildTable(res,dbRows) {
     })
 }
 
+module.exports = {
+	getProjectsConnection: getProjectsConnection,
+	getSuppliersConnection: getSuppliersConnection,
+	selectSuppliersTableData: selectSuppliersTableData,
+	selectProjectsTableData: selectProjectsTableData
+}
