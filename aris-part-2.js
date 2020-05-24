@@ -113,7 +113,9 @@ async function selectProjectsTableData(res, name, id) {
         if (id !== null) {
             buildTable(res,rows);
         }
-        return res.send(JSON.stringify(rows));
+        else {
+            return res.send(JSON.stringify(rows));
+        }
     }
 }
 

@@ -21,14 +21,22 @@
         socket.on('dbResponse', (rows) => {
             console.log("Working in HTML...");
             document.getElementById('container').innerHTML = '';
-            document.getElementById('container').innerHTML += 'table style="width:100%">';
+            document.getElementById('container').innerHTML += '<table style="width:100%">';
             document.getElementById('container').innerHTML += '<tr>';
+            document.getElementById('container').innerHTML += '<th>ProjectID</th>';
+            document.getElementById('container').innerHTML += '<th>AuthorID</th>';
+            document.getElementById('container').innerHTML += '<th>ContractID</th>';
+            document.getElementById('container').innerHTML += '<th>Title</th>';
+            document.getElementById('container').innerHTML += '<th>Notes</th>';
+            document.getElementById('container').innerHTML += '<th>Edition</th>';
+            document.getElementById('container').innerHTML += '<th>ApprovalDate</th>';
+            document.getElementById('container').innerHTML += '<th>isActive</th>';
+
             rows.map((row) => {
                 document.getElementById('container').innerHTML += '<tr>';
-                document.getElementById('container').innerHTML += '
-                        `<th>Title</th><td>${row.Title}</td>`
-                document.getElementByID('container').innerHTML += `<div class="row"><span
-                        class="notes">${row.Notes}</span></div>`
+                document.getElementById('container').innerHTML += `<td>${row.ProjectID}</td>`
+                document.getElementById('container').innerHTML += `<td>${row.AuthorID}</td>`
+                document.getElementById('container').innerHTML += `<td>${row.ContractID}</td>`
         });
       });
     </script>
