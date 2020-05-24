@@ -1,5 +1,14 @@
+//loading our app server
 const mariadb = require('mariadb');
+const express = require('express')
+const bodyParser = require('body-parser')
 
+const app = express()
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+var util = require('./modules/util.js')
+var rows;
 
 const projectsPool = mariadb.createPool({
     host:               'localhost',
@@ -7,7 +16,7 @@ const projectsPool = mariadb.createPool({
     password:           'jaaab',
     connectionLimit:    5,
     database:           'projects',
-    debug:              true
+    debug:              false
 });
 
 const suppliersPool = mariadb.createPool({
@@ -16,15 +25,10 @@ const suppliersPool = mariadb.createPool({
     password:           'jaaab',
     connectionLimit:    5,
     database:           'suppliers',
-    debug:              true
+    debug:              false
 });
 
-//loading our app server
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
-var util = require('./modules/util.js')
-var rows;
+
 
 app.use(express.static('./public')) //this allows us to nav to html files via their url
 app.use(bodyParser.urlencoded({extended: false}))
@@ -47,23 +51,110 @@ async function selectSuppliersTableData(res, name) {
     }
 }
 
+/*
+function buildTable(res,dbRows) {
+    console.log("in buildTable : ");
+    console.log(dbRows);
+
+    io.emit('dbresponse', dbRows);
+    console.log("IO Emit Didn't work.");
+    //res.send(JSON.stringify(dbRows));
+
+    return null;
+}
+*/
+
+async function selectProjectsTableData(res, name, id) {
+    let conn;
+    let key;
+    let primaryKey;
+    let rows;
+
+    conn = await projectsPool.getConnection();
+    console.log(`Got Connection!`);
+
+    if (id !== null) {
+        key = await conn.query(`SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE
+            COLUMN_KEY = 'PRI' AND TABLE_NAME = '${name}';`);
+
+        const key_obj = JSON.parse(JSON.stringify(key));
+
+        for (var i in key_obj) {
+            var item = key_obj[i];
+            for (var j in item) {
+                primaryKey = item[j];
+                //console.log("THIS IS MY PRIMARY KEY HOPEFULLY!!! : " + primaryKey);
+            }
+        }
+    }
+
+    let query = id !== null ?
+        `SELECT * FROM ${name} WHERE ${primaryKey} = '${id}';` :
+            `SELECT * FROM ${name};`;
+
+    console.log(query);
+
+    try {
+
+        rows = await conn.query(query);
+        console.log(`Getting rows...`);
+    }
+    catch (err) {
+            console.log("ERROR!!!");
+            throw err;
+            return null;
+    } finally {
+        if (conn) {
+            console.log(`Ending connection...`);
+            conn.end();
+        }
+        console.log(`Returning rows...`);
+
+        buildTable(res,rows);
+    }
+}
+
+// build our table
+function buildTable(res,dbRows) {
+    console.log("in buildTable : ");
+    console.log(dbRows);
+
+    io.on('connection', (socket) => {
+        socket.emit('dbResponse', dbRows)
+    })
+}
+
+/*
 async function selectProjectsTableData(res, name, id) {
     let conn;
 
     if (id !== null) {
+        var key;
+        var rows;
         console.log(`Finding Primary Key : ${id} in ${name}`);
         try {
             conn = await projectsPool.getConnection();
             console.log(`Got Connection!`);
 
-            // Get Primary Key Column Name
             key = await conn.query(`SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE
             COLUMN_KEY = 'PRI' AND TABLE_NAME = '${name}';`);
-            console.log(`Primary Key Name : ${key}`);
+            //await console.log("Primary Key Name : " + JSON.stringify(key));
 
+            const key_obj = JSON.parse(JSON.stringify(key));
 
-            rows = await conn.query(`SELECT * FROM ${name} WHERE ${key.toString()} = '${id}';`);
+            var primaryKey;
+            for (var i in key_obj) {
+                var item = key_obj[i];
+                for (var key in item) {
+                    var value = item[key];
+                    //console.log("THIS IS MY PRIMARY KEY HOPEFULLY!!! : " + value);
+                    primaryKey = value;
+                }
+            }
+
+            rows = await conn.query(`SELECT * FROM ${name} WHERE ${primaryKey} = '${id}';`);
             console.log(`Getting rows...`);
+
         } catch (err) {
             console.log("ERROR!!!");
             throw err;
@@ -74,8 +165,8 @@ async function selectProjectsTableData(res, name, id) {
                 conn.end();
             }
             console.log(`Returning rows...`);
-            console.log(rows);
-            return rows;
+
+            buildTable(res,rows);
         }
     }
     try {
@@ -91,6 +182,7 @@ async function selectProjectsTableData(res, name, id) {
         return res.send(JSON.stringify(rows));
     }
 }
+*/
 
 app.get("/", (req, res) => {
 	console.log("Responding to root route");
@@ -150,6 +242,9 @@ app.get("/viewtable/p/:tableName", (req, res) => {
 });
 
 app.get("/viewproject/:projectID", (req, res) => {
+
+    res.sendFile(__dirname + '/public/viewproject.html');
+
     let error;
     const projectID = req.params.projectID;
 
@@ -157,22 +252,19 @@ app.get("/viewproject/:projectID", (req, res) => {
 
     let rows;
 
-    rows = selectProjectsTableData(res, 'tblProject', projectID);
+    selectProjectsTableData(res, 'tblProject', projectID);
 
-    while (rows === '{}' && !rows) {
-        console.log(`Waiting...`);
-    }
-
-    console.log(rows);
-
-
+    //console.log(rows);
 });
 
+http.listen(3003);
+
+/*
 var portNum = 3003;
 app.listen(portNum, () => {
 	console.log("Server up on port " + portNum)
 });
-
+*/
 
 // Previously on line 17 of function selectSuppliersTableData()
 

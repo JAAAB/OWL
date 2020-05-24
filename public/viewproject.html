@@ -1,0 +1,15 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="container">Loading...</div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      socket.on('dbResponse', (rows) => {
+        console.log("Working in HTML...");
+        document.getElementById('container').innerHTML = `Here are the ${rows.length}` 
+      });
+    </script>
+  </body>
+</html>
