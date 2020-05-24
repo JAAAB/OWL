@@ -22,7 +22,7 @@
       let renderedTable = `<table style="width:100%"><tr><th>ProjectID</th><th>AuthorID</th><th>ContractID</th><th>Title</th><th>Notes</th><th>Edition</th><th>ApprovalDate</th><th>isActive</th></tr>`
 
       rows.map((row) => { 
-        renderedTable += `<tr><td>${row.ProjectID}</td><td>${row.AuthorID}</td><td>${row.ContractID}</td></tr>`;
+              renderedTable += `<tr><td><a href=/editproject.html>${row.ProjectID}</a></td><td>${row.AuthorID}</td><td>${row.ContractID}</td></tr>`;
       });
       renderedTable += `</table>`;
       document.getElementById('container').innerHTML = renderedTable;
