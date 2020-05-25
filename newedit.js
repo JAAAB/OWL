@@ -1,6 +1,7 @@
 //loading our app server
 const express = require('express')
 const mysql = require('mysql')
+const mariadb = require('mariadb')
 const bodyParser = require('body-parser')
 
 const app = express()
@@ -19,27 +20,59 @@ app.get("/", (req, res) => {
 	res.send("This is root");
 })
 
-app.get('/editproject/:projectid', (req, res) => {
-	res.sendFile(__dirname + '/public/reports.html');
+app.post('/project_save', (req, res) => {
+	console.log("Saving changes to project...");
+	console.log("ID = " + req.body.projectid);
+	console.log("Title = " + req.body.project_title);
+	console.log("Author = " + req.body.author);
+	console.log("Status = " + req.body.status);
+	console.log("Approval Date = " + req.body.approval_date);
+	console.log("Edition = " + req.body.edition);
+	console.log("ContractLength = " + req.body.contract);
+	console.log("Notes = " + req.body.notes);
 
-	let error;
-	const projectID = req.params.projectid;
-	const name = 'tblProject';
+	var SQLStatus = 0;
+	if(req.body.status == 'Active'){
+		SQLStatus = 1;
+	}
+	var SQLAuthor = req.body.author.replace(" ", "%");
+	var SQLDate = req.body.approval_date;
 
+	console.log("\n");
+	console.log("SQLAuthor: " + SQLAuthor);
+	console.log("SQLStatus: " +SQLStatus);
 
-	///*
-	console.log("Fetching Project #: " + projectID);
+	var queryString =
+	"UPDATE tblProject " +
+	"SET " +
+	"Title = '" + req.body.project_title + "', " +
+	"Notes = '" + req.body.notes + "', " + 
+	"Edition = '" + req.body.edition + "', " +
+	"ApprovalDate = '" + req.body.approval_date + "', " +
+	"IsActive = '" + SQLStatus + "', " +
+	"AuthorID = (SELECT AuthorID FROM tblAuthor LEFT JOIN tblAccount USING (AccountID) " +
+		"WHERE FullName LIKE '" + SQLAuthor + "'), " +
+	"ContractID = (SELECT ContractID FROM tblContract WHERE Years = '" + req.body.contract+ "') " +
+	"WHERE ProjectID = '" + req.body.projectid + "';";
 
-	let rows;
+	console.log(queryString);
 
-	util.selectProjectsTableData(res, name, projectID);
-	//console.log("TEST PRINT " + tableData[0]);
-
-
-
-	//res.send(id);
-	//res.end();
-	//*/
+	var conn = util.getProjectsConnection();
+	//const conn = util.projectsPool.getConnection();
+	//conn.query(queryString);
+	//NEED TO REWRITE THIS TO USE MARIADB
+	conn.query(queryString, (err, rows, fields) => { //running query
+		if(err) {
+			console.log("Failed to execute update: " + err);
+			res.sendStatus(500);
+			res.end();
+		}
+		console.log("Project Updated.");
+		res.redirect("/");
+		//res.redirect("/projects");
+		res.end();
+	});
+	
 })
 
 app.post('/project_create', (req, res) => {
@@ -77,6 +110,7 @@ app.post('/project_create', (req, res) => {
 
 	console.log(queryString);
 
+	//NEED TO REWRITE THIS TO USE MARIADB
 	var conn = util.getProjectsConnection();
 	conn.query(queryString, (err, rows, fields) => { //running query
 		if(err) {
@@ -91,6 +125,7 @@ app.post('/project_create', (req, res) => {
 	});
 })
 
+//All this does is spit out JSON
 app.get("/viewtable/:tableName", (req, res) => {
 	var results;
 	const name = req.params.tableName;

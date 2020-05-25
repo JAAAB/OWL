@@ -9,12 +9,12 @@
 	<h1>New/Edit Project</h1>
 
 	<div>
-		<form action="/project_create" method="POST">
+		<form action="/project_save" method="POST">
 			<label for="project_title">Project Tile:</label>
 			<input style= "width: 400px" placeholder="Project Title" name="project_title"/><br>
 
 			<label for="projectid">Project ID:</label>
-			<input style= "width: 400px" value="0000000000000000000000" name="projectid" readonly><br>
+			<input style= "width: 400px" value="1" name="projectid" readonly><br>
 
 			<label for="author">Author:</label>
 			<input style= "width: 200px" placeholder= "Author Name" list="authors" name="author">
@@ -48,9 +48,9 @@
 			<label style= "width:107px" for="sales">Total Sales:</label>
 			<input name="sales"><br>
 
-			<label style= "width:128px" for="notes">Description:</label>
-			<textarea id="notes" rows="6" cols="50">
-			</textarea><br><br>
+			<label for="notes">Description:</label>
+			<input style="width:400px" placeholder="Project description..." name="notes">
+			<br><br>
 
 			<!-- Below this line is just for decoration, no functionality -->
 

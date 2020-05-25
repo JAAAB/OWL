@@ -1,5 +1,6 @@
 const mariadb = require('mariadb');
 const express = require('express')
+const mysql = require('mysql');
 const bodyParser = require('body-parser')
 
 const app = express()
@@ -24,8 +25,9 @@ const suppliersPool = mariadb.createPool({
 	debug: false
 });
 
+//temporarily set these back to mysql instead of mariadb to work with editing and saving projects
 function getProjectsConnection(){
-	return mariadb.createConnection({
+	return mysql.createConnection({
 		host: 'localhost',
 		user: 'owl',
 		password: 'jaaab',
@@ -34,7 +36,7 @@ function getProjectsConnection(){
 }
 
 function getSuppliersConnection(){
-	return mariadb.createConnection({
+	return mysql.createConnection({
 		host: 'localhost',
 		user: 'owl',
 		password: 'jaaab',
@@ -169,5 +171,7 @@ module.exports = {
 	getProjectsConnection: getProjectsConnection,
 	getSuppliersConnection: getSuppliersConnection,
 	selectSuppliersTableData: selectSuppliersTableData,
-	selectProjectsTableData: selectProjectsTableData
+	selectProjectsTableData: selectProjectsTableData,
+	projectsPool: projectsPool,
+	suppliers: suppliersPool
 }
