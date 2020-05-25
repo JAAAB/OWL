@@ -268,7 +268,7 @@ app.get("/projects", (req, res) => {
 });
 
 app.get('/editproject/:projectid', (req, res) => {
-	res.sendFile(__dirname + '/public/reports.html');
+	res.sendFile(__dirname + '/public/editproject.html');
 
 	let error;
 	const projectID = req.params.projectid;
