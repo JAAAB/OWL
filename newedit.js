@@ -2,8 +2,14 @@
 const express = require('express')
 const mysql = require('mysql')
 const bodyParser = require('body-parser')
+
 const app = express()
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 var util = require('./modules/util.js')
+
+
 
 app.use(express.static('./public')) //this allows us to nav to html files via their url
 app.use(bodyParser.urlencoded({extended: false}))
@@ -14,12 +20,26 @@ app.get("/", (req, res) => {
 })
 
 app.get('/editproject/:projectid', (req, res) => {
-	var id = req.params.projectid;
-	var name = 'tblProject';
-	console.log("Fetching Project #: " + id);
-	res.send(id);
-	res.send(util.selectProjectsTableData(res, name, id));
-	res.end();
+	res.sendFile(__dirname + '/public/viewsupplier.html');
+
+	let error;
+	const projectID = req.params.projectid;
+	const name = 'tblProject';
+
+
+	///*
+	console.log("Fetching Project #: " + projectID);
+	
+	let rows;
+
+	util.selectProjectsTableData(res, name, projectID);
+	//console.log("TEST PRINT " + tableData[0]);
+	
+	
+
+	//res.send(id);
+	//res.end();
+	//*/
 })
 
 app.post('/project_create', (req, res) => {
