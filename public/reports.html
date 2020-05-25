@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="stylesheet.css">
+	
+		<div class="topnav">
+			<a class="active" href="/index.html">Home</a>
+			<a href="/authors.html">Authors</a>
+			<a href="/projects.html">Projects</a>
+			<a href="/books.html">Books</a>
+			<a href="/suppliers.html">Suppliers</a>
+			<a href="/orders.html">Orders</a>
+			<a href="/contracts.html">Contracts</a>
+			<a href="/reports.html">Reports</a>
+			<div class="topnav-right">
+				<a href="/login.html">Log In</a>
+			</div>
+			
+
+		</div>
+	</head>
+
+<body style="background-color:darkgrey"> 
+	<div id="container">
+		Loading...
+	</div>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io();
+		socket.on('dbResponse', (rows) => {
+			console.log("Working in HTML...");
+			document.getElementById('container').innerHTML = "<h1>Test HTML</h1>";
+
+			rows.map((row) => {
+				document.getElementById('container').innerHTML += `${row.Title}`;
+				document.getElementById('container').innerHTML += '';
+
+			});
+		});
+	</script>
+
+			
+	</div>
+</body>
+</html>
