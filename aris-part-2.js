@@ -1,7 +1,8 @@
 //loading our app server
 const mariadb = require('mariadb');
-const express = require('express')
-const bodyParser = require('body-parser')
+const express = require('express');
+const bodyParser = require('body-parser');
+const dateFormat = require('dateformat');
 
 const app = express()
 const http = require('http').Server(app);

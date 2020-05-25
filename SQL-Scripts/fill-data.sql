@@ -93,13 +93,15 @@ values ('Exclusive deal', 10);
 --where FullName like 'Baskin%Robbins';
 
 insert into tblProject (AuthorID, ContractID, Title, Notes, Edition, ApprovalDate, isActive)
-select AuthorID, 1, 'Dragon-Bjorn', 'A story about a Swedish man making love to an American dragon', 2.2, '2018-03-03', 1
+select AuthorID, 1, 'Dragon-Bjorn', 'A story about a Swedish man making love to an American dragon',
+2.2, STR_TO_DATE("2018-03-03",GET_FORMAT(DATE,'ISO')), 1
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
 where au.AuthorID = 3;
 
 insert into tblProject (AuthorID, ContractID, Title, Notes, Edition, ApprovalDate, isActive)
-select au.AuthorID, 2, 'Fe-man!', 'The ballad of He-man, but in an alternate reality!!!', 1.5, '2020-01-25', 1
+select au.AuthorID, 2, 'Fe-man!', 'The ballad of He-man, but in an alternate reality!!!', 1.5,
+STR_TO_DATE("2020-01-25",GET_FORMAT(DATE,'ISO')), 1
 from tblAccount as acc
 join tblAuthor as au on acc.AccountID = au.AccountID
 where au.AuthorID = 2;
