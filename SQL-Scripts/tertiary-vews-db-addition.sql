@@ -30,4 +30,6 @@ END AS Status
 FROM tblProject
 LEFT JOIN tblAuthor USING (AuthorID)
 LEFT JOIN tblAccount USING (AccountID)
+LEFT JOIN tblManuscript ON tblManuscript.ProjectID = tblProject.ProjectID
+LEFT JOIN tblContract ON tblContract.ContractID = tblProject.ContractID
 ORDER BY Status, Title DESC;
