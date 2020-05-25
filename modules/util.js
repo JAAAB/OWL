@@ -1,4 +1,4 @@
-const mariadb = require('mariadb');
+const mysql = require('mysql');
 const express = require('express')
 const mysql = require('mysql');
 const bodyParser = require('body-parser')
@@ -7,7 +7,7 @@ const app = express()
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const projectsPool = mariadb.createPool({
+const projectsPool = mysql.createPool({
 	host: 'localhost',
 	user: 'owl',
 	password: 'jaaab',
@@ -16,7 +16,7 @@ const projectsPool = mariadb.createPool({
 	debug: false
 });
 
-const suppliersPool = mariadb.createPool({
+const suppliersPool = mysql.createPool({
 	host: 'localhost',
 	user: 'owl',
 	password: 'jaaab',
@@ -44,8 +44,6 @@ function getSuppliersConnection(){
 	})
 }
 
-
-
 async function selectSuppliersTableData(res, name, id) {
     let conn;
     let key;
@@ -65,13 +63,13 @@ async function selectSuppliersTableData(res, name, id) {
             var item = key_obj[i];
             for (var j in item) {
                 primaryKey = item[j];
-                //console.log("THIS IS MY PRIMARY KEY HOPEFULLY!!! : " + primaryKey);
+                //console.log("THIS IS MY PRIMARY KEY !!! : " + primaryKey);
             }
         }
     }
 
     let query = id !== null ?
-        `SELECT * FROM ${name} WHERE ${primaryKey} = '${id}';` :
+        `SELECT * FROM ${name} WHERE ${primaryKey} = '${id}' ORDER BY ${primaryKey} DESC;` :
             `SELECT * FROM ${name};`;
 
     console.log(query);
@@ -96,6 +94,7 @@ async function selectSuppliersTableData(res, name, id) {
             buildTable(res,rows);
         }
         else {
+            buildListTable(res,rows);
             return res.send(JSON.stringify(rows));
         }
     }
@@ -111,7 +110,16 @@ async function selectProjectsTableData(res, name, id) {
     conn = await projectsPool.getConnection();
     console.log(`Got Connection!`);
 
-    if (id !== null) {
+    if (name === 'tblProject' || name === 'vewProjects') {
+        name = 'vewProjects';
+        primaryKey = 'ProjectID';
+    }
+    else if (name === 'tblSupplier' || name === 'vewSuppliers') {
+        name = 'vewSupplier';
+        primaryKey = 'SupplierID';
+    }
+
+    if (id !== null && primaryKey === null) {
         key = await conn.query(`SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE
             COLUMN_KEY = 'PRI' AND TABLE_NAME = '${name}';`);
 
@@ -152,6 +160,7 @@ async function selectProjectsTableData(res, name, id) {
             buildTable(res,rows);
         }
         else {
+            buildListTable(res,rows);
             return res.send(JSON.stringify(rows));
         }
     }
@@ -165,6 +174,15 @@ function buildTable(res,dbRows) {
     io.on('connection', (socket) => {
         socket.emit('dbResponse', dbRows)
     })
+}
+
+function buildListTable(res,dbRows) {
+    console.log("in buildListTable : ");
+    console.log(dbRows);
+
+    io.on('connection', (socket) => {
+        socket.emit('dbResponse', dbRows)
+    });
 }
 
 module.exports = {
