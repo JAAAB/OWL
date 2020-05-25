@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 })
 
 app.get('/editproject/:projectid', (req, res) => {
-	res.sendFile(__dirname + '/public/viewsupplier.html');
+	res.sendFile(__dirname + '/public/reports.html');
 
 	let error;
 	const projectID = req.params.projectid;
@@ -116,7 +116,7 @@ app.get("/viewtable/:tableName", (req, res) => {
 })
 
 var portNum = 3003;
-app.listen(portNum, () => {
+http.listen(portNum, () => {
 	console.log("Server up on port " + portNum)
 })
 
