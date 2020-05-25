@@ -19,13 +19,13 @@ const suppliersPool = mariadb.createPool({
 	host: 'localhost',
 	user: 'owl',
 	password: 'jaaab',
-	connectionLimit: 5, 
+	connectionLimit: 5,
 	database: 'suppliers',
 	debug: false
 });
 
 function getProjectsConnection(){
-	return mysql.createConnection({
+	return mariadb.createConnection({
 		host: 'localhost',
 		user: 'owl',
 		password: 'jaaab',
@@ -34,7 +34,7 @@ function getProjectsConnection(){
 }
 
 function getSuppliersConnection(){
-	return mysql.createConnection({
+	return mariadb.createConnection({
 		host: 'localhost',
 		user: 'owl',
 		password: 'jaaab',

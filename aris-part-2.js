@@ -65,13 +65,13 @@ async function selectSuppliersTableData(res, name, id) {
             var item = key_obj[i];
             for (var j in item) {
                 primaryKey = item[j];
-                //console.log("THIS IS MY PRIMARY KEY HOPEFULLY!!! : " + primaryKey);
+                //console.log("THIS IS MY PRIMARY KEY !!! : " + primaryKey);
             }
         }
     }
 
     let query = id !== null ?
-        `SELECT * FROM ${name} WHERE ${primaryKey} = '${id}';` :
+        `SELECT * FROM ${name} WHERE ${primaryKey} = '${id}' ORDER BY ${primaryKey} DESC;` :
             `SELECT * FROM ${name};`;
 
     console.log(query);
@@ -111,7 +111,16 @@ async function selectProjectsTableData(res, name, id) {
     conn = await projectsPool.getConnection();
     console.log(`Got Connection!`);
 
-    if (id !== null) {
+    if (name === 'tblProject' || name === 'vewProjects') {
+        name = 'vewProjects';
+        primaryKey = 'ProjectID';
+    }
+    else if (name === 'tblSupplier' || name === 'vewSuppliers') {
+        name = 'vewSupplier';
+        primaryKey = 'SupplierID';
+    }
+
+    if (id !== null && primaryKey === null) {
         key = await conn.query(`SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE
             COLUMN_KEY = 'PRI' AND TABLE_NAME = '${name}';`);
 
@@ -152,6 +161,7 @@ async function selectProjectsTableData(res, name, id) {
             buildTable(res,rows);
         }
         else {
+            buildListTable(res,rows);
             return res.send(JSON.stringify(rows));
         }
     }
@@ -165,6 +175,15 @@ function buildTable(res,dbRows) {
     io.on('connection', (socket) => {
         socket.emit('dbResponse', dbRows)
     })
+}
+
+function buildListTable(res,dbRows) {
+    console.log("in buildListTable : ");
+    console.log(dbRows);
+
+    io.on('connection', (socket) => {
+        socket.emit('dbResponse', dbRows)
+    });
 }
 
 app.get("/", (req, res) => {
@@ -225,7 +244,7 @@ app.get("/viewproject/:projectID", (req, res) => {
 
     let rows;
 
-    selectProjectsTableData(res, 'tblProject', projectID);
+    selectProjectsTableData(res, 'tblProject', projectID, null);
 });
 
 app.get("/viewsupplier/:supplierID", (req, res) => {
@@ -241,5 +260,28 @@ app.get("/viewsupplier/:supplierID", (req, res) => {
 
     selectSuppliersTableData(res, 'tblSupplier', supplierID);
 });
+
+app.get("/projects", (req, res) => {
+    res.sendFile(__dirname + '/public/projects.html');
+
+    selectProjectsTableData(res, 'vewProjects', null);
+});
+
+app.get('/editproject/:projectid', (req, res) => {
+	res.sendFile(__dirname + '/public/reports.html');
+
+	let error;
+	const projectID = req.params.projectid;
+	const name = 'tblProject';
+
+    console.log("Fetching Project #: " + projectID);
+
+	let rows;
+
+	//util.selectProjectsTableData(res, name, projectID);
+    selectProjectsTableData(res, name, projectID);
+});
+
+
 
 http.listen(3003);

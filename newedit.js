@@ -29,13 +29,13 @@ app.get('/editproject/:projectid', (req, res) => {
 
 	///*
 	console.log("Fetching Project #: " + projectID);
-	
+
 	let rows;
 
 	util.selectProjectsTableData(res, name, projectID);
 	//console.log("TEST PRINT " + tableData[0]);
-	
-	
+
+
 
 	//res.send(id);
 	//res.end();
@@ -63,7 +63,7 @@ app.post('/project_create', (req, res) => {
 	console.log("\n");
 	console.log("SQLAuthor: " + SQLAuthor);
 	console.log("SQLStatus: " +SQLStatus);
-	
+
 	//console.log("Total Sales = " + req.body.sales); //this probably should only be output, not input
 
 
@@ -74,7 +74,7 @@ app.post('/project_create', (req, res) => {
 	"join tblContract as c " +
 	"where acc.FullName like '" + SQLAuthor + "' AND " +
 	"c.Years like '" + req.body.contract + "';";
-	
+
 	console.log(queryString);
 
 	var conn = util.getProjectsConnection();
@@ -94,7 +94,7 @@ app.post('/project_create', (req, res) => {
 app.get("/viewtable/:tableName", (req, res) => {
 	var results;
 	const name = req.params.tableName;
-	console.log("Viewing table: " + name);	
+	console.log("Viewing table: " + name);
 
 	var connection = util.getSuppliersConnection();
 	var queryString = 'SELECT * FROM ' + name; //setting query string with variable

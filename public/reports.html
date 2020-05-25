@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="stylesheet.css">
+            <!--<link rel="stylesheet" href="stylesheet.css"> -->
 	
 		<div class="topnav">
 			<a class="active" href="/index.html">Home</a>
@@ -27,19 +27,20 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io();
-		socket.on('dbResponse', (rows) => {
-			console.log("Working in HTML...");
-			document.getElementById('container').innerHTML = "<h1>Test HTML</h1>";
+    socket.on('dbResponse', (rows) => {
+      console.log("Working in HTML...");
 
-			rows.map((row) => {
-				document.getElementById('container').innerHTML += `${row.Title}`;
-				document.getElementById('container').innerHTML += '';
+      document.getElementById('container').innerHTML = '';
+      let renderedTable = `<table style="width:100%"><tr><th>ProjectID</th><th>AuthorID</th><th>ContractID</th><th>Title</th><th>Notes</th><th>Edition</th><th>ApprovalDate</th><th>isActive</th></tr>`
 
-			});
-		});
+      rows.map((row) => { 
+              renderedTable += `<tr><td><a
+              href=/editproject.html>${row.Title}</a></td><td></td><td></td></tr>`;
+      });
+      renderedTable += `</table>`;
+      document.getElementById('container').innerHTML = renderedTable;
+      console.log(renderedTable);
+    });
 	</script>
-
-			
-	</div>
 </body>
 </html>

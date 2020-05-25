@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  Main Menu > Suppliers > View Supplier 
+  Main Menu > Projects > View Project 
   <!--<link rel="stylesheet" href="stylesheet.css"> -->
   <!--<script src = "../modules/util.js"></script> -->
 </head>
 <body> 
-  <h1>View Supplier</h1>
+  <h1>View Project</h1>
 
   <div id="container">
     Loading...
@@ -19,10 +19,11 @@
       console.log("Working in HTML...");
 
       document.getElementById('container').innerHTML = '';
-      let renderedTable = `<table style="width:100%"><tr><th>SupplierID</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>`
+            let renderedTable = `<table style="width:100%"><tr><th>ProjectID</th><th>Title</th><th>Author</th><th>Status</th>`
 
       rows.map((row) => { 
-              renderedTable += `<tr><td><a href=/editsupplier.html>${row.SupplierID}</a></td><td><td><td></td></tr>`;
+              renderedTable += `<tr><td><a
+              href=/editproject/${row.ProjectID}>${row.ProjectID}</a></td><td>${row.Title}</td><td>${row.Author}</td><td>${row.Status}</td></tr>`;
       });
       renderedTable += `</table>`;
       document.getElementById('container').innerHTML = renderedTable;
