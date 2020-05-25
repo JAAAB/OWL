@@ -6,6 +6,24 @@ const app = express()
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
+const projectsPool = mariadb.createPool({
+	host: 'localhost',
+	user: 'owl',
+	password: 'jaaab',
+	connectionLimit: 5,
+	database: 'projects',
+	debug: false
+});
+
+const suppliersPool = mariadb.createPool({
+	host: 'localhost',
+	user: 'owl',
+	password: 'jaaab',
+	connectionLimit: 5, 
+	database: 'suppliers',
+	debug: false
+});
+
 function getProjectsConnection(){
 	return mysql.createConnection({
 		host: 'localhost',

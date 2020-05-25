@@ -14,8 +14,12 @@ app.get("/", (req, res) => {
 })
 
 app.get('/editproject/:projectid', (req, res) => {
-	
-
+	var id = req.params.projectid;
+	var name = 'tblProject';
+	console.log("Fetching Project #: " + id);
+	res.send(id);
+	res.send(util.selectProjectsTableData(res, name, id));
+	res.end();
 })
 
 app.post('/project_create', (req, res) => {
