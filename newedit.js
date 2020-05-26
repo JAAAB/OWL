@@ -46,7 +46,7 @@ app.post('/project_save', (req, res) => {
 	"UPDATE tblProject " +
 	"SET " +
 	"Title = '" + req.body.project_title + "', " +
-	"Notes = '" + req.body.notes + "', " + 
+	"Notes = '" + req.body.notes + "', " +
 	"Edition = '" + req.body.edition + "', " +
 	"ApprovalDate = '" + req.body.approval_date + "', " +
 	"IsActive = '" + SQLStatus + "', " +
@@ -72,7 +72,7 @@ app.post('/project_save', (req, res) => {
 		//res.redirect("/projects");
 		res.end();
 	});
-	
+
 })
 
 app.post('/project_create', (req, res) => {

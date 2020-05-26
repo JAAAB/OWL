@@ -335,10 +335,10 @@ app.post('/project_create', (req, res) => {
 	});
 })
 
-app.post('/project_create', (req, res) => {
-	console.log("Creating new project...");
+app.post('/project_save', (req, res) => {
+	console.log("Saving changes to project...");
+	console.log("ID = " + req.body.projectid);
 	console.log("Title = " + req.body.project_title);
-	//console.log("Project ID = " + req.body.projectid); //this probably should only be output, not input
 	console.log("Author = " + req.body.author);
 	console.log("Status = " + req.body.status);
 	console.log("Approval Date = " + req.body.approval_date);
@@ -357,32 +357,38 @@ app.post('/project_create', (req, res) => {
 	console.log("SQLAuthor: " + SQLAuthor);
 	console.log("SQLStatus: " +SQLStatus);
 
-	//console.log("Total Sales = " + req.body.sales); //this probably should only be output, not input
-
-
-	var queryString = "insert into tblProject (AuthorID, ContractID, Title, Notes, Edition, ApprovalDate, isActive) " +
-	"select au.AuthorID, c.ContractID, '" + req.body.project_title + "', '" + req.body.notes + "','" + req.body.edition + "', '" + SQLDate + "',"+ SQLStatus + " " +
-	"from tblAccount as acc " +
-	"join tblAuthor as au on acc.AccountID = au.AccountID " +
-	"join tblContract as c " +
-	"where acc.FullName like '" + SQLAuthor + "' AND " +
-	"c.Years like '" + req.body.contract + "';";
+	var queryString =
+	"UPDATE tblProject " +
+	"SET " +
+	"Title = '" + req.body.project_title + "', " +
+	"Notes = '" + req.body.notes + "', " +
+	"Edition = '" + req.body.edition + "', " +
+	"ApprovalDate = '" + req.body.approval_date + "', " +
+	"IsActive = '" + SQLStatus + "', " +
+	"AuthorID = (SELECT AuthorID FROM tblAuthor LEFT JOIN tblAccount USING (AccountID) " +
+		"WHERE FullName LIKE '" + SQLAuthor + "'), " +
+	"ContractID = (SELECT ContractID FROM tblContract WHERE Years = '" + req.body.contract+ "') " +
+	"WHERE ProjectID = '" + req.body.projectid + "';";
 
 	console.log(queryString);
 
-	//NEED TO REWRITE THIS TO USE MARIADB
 	var conn = util.getProjectsConnection();
+	//const conn = util.projectsPool.getConnection();
+	//conn.query(queryString);
+	//NEED TO REWRITE THIS TO USE MARIADB
 	conn.query(queryString, (err, rows, fields) => { //running query
 		if(err) {
-			console.log("Failed to execute insert: " + err);
+			console.log("Failed to execute update: " + err);
 			res.sendStatus(500);
 			res.end();
-
 		}
-		console.log("New Project Inserted.");
+		console.log("Project Updated.");
 		res.redirect("/");
+		//res.redirect("/projects");
 		res.end();
 	});
+
 })
+
 
 http.listen(3003);
