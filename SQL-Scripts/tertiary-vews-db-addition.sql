@@ -24,8 +24,8 @@ AS
 SELECT tblProject.ProjectID, Title,
 CONCAT (FirstName, " ", LastName) AS 'Author',
 CASE
-    WHEN tblBook.Edition IS NULL THEN '0'
-    ELSE tblBook.Edition
+    WHEN tblProject.Edition IS NULL THEN '0'
+    ELSE tblProject.Edition
 END AS Edition,
 CASE
 	WHEN isActive THEN 'Active'
@@ -40,5 +40,4 @@ LEFT JOIN tblAuthor USING (AuthorID)
 LEFT JOIN tblAccount USING (AccountID)
 LEFT JOIN tblManuscript ON tblManuscript.ProjectID = tblProject.ProjectID
 LEFT JOIN tblContract ON tblContract.ContractID = tblProject.ContractID
-LEFT JOIN tblBook ON tblBook.ProjectID = tblProject.ProjectID
 ORDER BY Status, Title DESC;
