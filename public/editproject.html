@@ -44,8 +44,8 @@
                 a Length" name="contract" value="${row.Years}"><datalist id="contracts"><option value="2"><option
                 value="5"><option value="10"></datalist><label style= "width:107px"
                 for="sales">Total Sales:</label><input name="sales"><br><label style= "width:128px"
-                for="notes">Description:</label><textarea id="notes" rows="6"
-                cols="50"> ${row.Notes}</textarea><br><br>`;
+                for="notes">Description:</label><input id="notes" style="width: 400px" value="${row.Notes}" placeholder
+                            ="Project description..."</input><br><br>`;
             });
             renderedForm += `<!-- Below this line is just for decoration, no functionality --><label style= "width:128px" for="manuscripts">Manuscripts:</label><textarea id="manuscripts" rows="6" cols="50"></textarea><br><label for="manuupload">Upload Manuscript...</label><input type="file" name="manuupload"><br><label style="width:128px" for="digitalmaterials">Digital Materials:</label><textareaid="digitalmaterials" rows="4" cols="50"></textarea><br><label for="matsupload">Upload Materials...</label><input type="file" name="matsupload"><br><button>Submit</button><!--<script>var mysql = require('mysql');var authorNames = new Array();var util = require('../modules/util.js');var queryString = "SELECT CONCAT(FirstName, '', LastName) AS Name FROM tblAccount JOIN tblAuthor ON tblAuthor.AccountID = tblAccount.AccountID;"var connection = util.getProjectsConnection();connection.query(queryString, async (err, rows, fields) => {if(err){console.log("FAILED TO GRAB AUTHORS: " + err);return;}console.log('GOT AUTHORS');})</script>--></form></div></body></html>`;
             document.getElementById('container').innerHTML = renderedForm;
