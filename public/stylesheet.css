@@ -21,6 +21,16 @@ input{
 	margin:8px;
 }
 
+table{
+	border-collapse: collapse;
+	width: 80%;
+	
+}
+
+table, th, td {
+	border:1px solid black;
+}
+
 /* background color to top nav bar*/
 .topnav {
   background-color: #333;
