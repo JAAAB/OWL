@@ -142,4 +142,32 @@ join tblProject as p on p.ProjectID = m.ProjectID
 where p.Title = 'Fe-man!' and mv.ActiveFlag = 1;
 
 
+insert into tblLanguage (Name, CharacterEncoding)
+values ('English', 'utf8');
+
+insert into tblLanguage (Name, CharacterEncoding)
+values ('Japanese', 'jisX0201');
+
+insert into tblFormat (Name)
+values ('Hard Cover');
+
+insert into tblFormat (Name)
+values ('PDF');
+
+insert into tblInventory (`Count`)
+values (1500);
+
+insert into tblInventory (`Count`)
+values (10000);
+
+insert into tblISBN (ISBNNumber)
+values ('978-0-13-601970-1');
+
+insert into tblISBN (ISBNNumber)
+values ('979-1-13-602969-1');
+
+insert into tblBook (ProjectID, InventoryID, ISBNID, PublishDate, LanguageID, FormatID, Edition,
+        Price)
+select tblProject.ProjectID, 1, 1, NULL, 1, 1, 1, 29.99
+from tblProject
 

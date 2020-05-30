@@ -51,3 +51,16 @@ tblAccount.Address
 FROM tblAuthor
 LEFT JOIN tblAccount ON tblAuthor.AccountID = tblAccount.AccountID
 ORDER BY tblAuthor.AuthorID ASC;
+
+CREATE VIEW vewBooks
+AS
+SELECT tblBook.BookID, tblISBN.ISBNNumber, tblProject.Title, tblAccount.FullName, tblFormat.Name AS
+FormatName, tblBook.Edition, tblBook.Price, tblLanguage.Name AS LanguageName
+FROM tblBook
+LEFT JOIN tblISBN ON tblISBN.ISBNID = tblBook.ISBNID
+LEFT JOIN tblProject ON tblProject.ProjectID = tblBook.ProjectID
+LEFT JOIN tblAuthor ON tblAuthor.AuthorID = tblProject.AuthorID
+LEFT JOIN tblAccount ON tblAccount.AccountID = tblAuthor.AccountID
+LEFT JOIN tblFormat ON tblFormat.FormatID = tblBook.FormatID
+LEFT JOIN tblLanguage ON tblLanguage.LanguageID = tblBook.LanguageID
+ORDER BY tblISBN.ISBNNumber ASC;

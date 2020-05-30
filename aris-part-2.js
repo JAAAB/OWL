@@ -279,6 +279,12 @@ app.get("/authors", (req, res) => {
 
 });
 
+app.get("/books", (req, res) => {
+    res.sendFile(__dirname + '/public/books.html');
+
+    selectProjectsTableData(res, 'vewBooks', null);
+});
+
 app.get('/editproject/:projectid', (req, res) => {
 	res.sendFile(__dirname + '/public/editproject.html');
 

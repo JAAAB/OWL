@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  Main Menu > Projects > View Books 
+  <link rel="stylesheet" href="stylesheet.css">
+  <!--<script src = "../modules/util.js"></script> -->
+</head>
+<body> 
+  <h1>View Books</h1>
+    <div id="addbook" align="center">
+<form action="/newbook.html" method="get">
+    <input type="submit" name="Add Book" value="Add Book" />
+</form>
+<br></br>
+    </div>
+
+  <div id="container">
+    Loading...
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    socket.on('dbResponse', (rows) => {
+      console.log("Working in HTML...");
+
+      document.getElementById('container').innerHTML = '';
+            let renderedTable = `<table
+            style="width:100%"><tr><th>BookID</th><th>ISBN</th><th>Title</th><th>Author</th><th>Format</th><th>Edition</th><th>Price</th><th>Language</th>`
+
+      rows.map((row) => { 
+      renderedTable += `<tr><td><a
+              href=/editbook/${row.BookID}>${row.BookID}</a></td><td>${row.ISBNNumber}</td><td>${row.Title}</td><td>${row.FullName}</td><td>${row.FormatName}</td><td>${row.Edition}</td><td>$${row.Price}</td><td>${row.LanguageName}</td></tr>`;
+      });
+      renderedTable += `</table>`;
+      document.getElementById('container').innerHTML = renderedTable;
+      console.log(renderedTable);
+    });
+  </script>
+
+</body>
+</html>
