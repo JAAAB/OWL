@@ -17,7 +17,7 @@ const projectsPool = mariadb.createPool({
     password:           'jaaab',
     connectionLimit:    5,
     database:           'projects',
-    debug:              false
+    debug:              true
 });
 
 const suppliersPool = mariadb.createPool({
@@ -26,7 +26,7 @@ const suppliersPool = mariadb.createPool({
     password:           'jaaab',
     connectionLimit:    5,
     database:           'suppliers',
-    debug:              false
+    debug:              true
 });
 
 
@@ -119,6 +119,10 @@ async function selectProjectsTableData(res, name, id) {
     else if (name === 'tblSupplier' || name === 'vewSuppliers') {
         name = 'vewSupplier';
         primaryKey = 'SupplierID';
+    }
+    else if (name === 'tblAuthor' || name === 'vewAuthors') {
+        name = 'vewAuthors';
+        primarykey = 'AuthorID';
     }
 
     if (id !== null && primaryKey === null) {
@@ -266,6 +270,13 @@ app.get("/projects", (req, res) => {
     res.sendFile(__dirname + '/public/projects.html');
 
     selectProjectsTableData(res, 'vewProjects', null);
+});
+
+app.get("/authors", (req, res) => {
+    res.sendFile(__dirname + '/public/authors.html');
+
+    selectProjectsTableData(res, 'vewAuthors', null);
+
 });
 
 app.get('/editproject/:projectid', (req, res) => {

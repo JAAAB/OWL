@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  Main Menu > Projects > View Authors 
+  <link rel="stylesheet" href="stylesheet.css">
+  <!--<script src = "../modules/util.js"></script> -->
+</head>
+<body> 
+  <h1>View Authors</h1>
+    <div id="addauthor" align="center">
+<form action="/newauthor.html" method="get">
+    <input type="submit" name="Add Author" value="Add Author" />
+</form>
+<br></br>
+    </div>
+
+  <div id="container">
+    Loading...
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    socket.on('dbResponse', (rows) => {
+      console.log("Working in HTML...");
+
+      document.getElementById('container').innerHTML = '';
+            let renderedTable = `<table
+            style="width:100%"><tr><th>AuthorID</th><th>FullName</th><th>Phone</th><th>Email</th><th>Address</th>`
+
+      rows.map((row) => { 
+              renderedTable += `<tr><td><a
+              href=/editauthor/${row.AuthorID}>${row.AuthorID}</a></td><td>${row.FullName}</td><td>${row.Phone}</td><td>${row.Email}</td><td>${row.Address}</tr>`;
+      });
+      renderedTable += `</table>`;
+      document.getElementById('container').innerHTML = renderedTable;
+      console.log(renderedTable);
+    });
+  </script>
+
+</body>
+</html>

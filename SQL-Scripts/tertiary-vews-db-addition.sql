@@ -41,3 +41,13 @@ LEFT JOIN tblAccount USING (AccountID)
 LEFT JOIN tblManuscript ON tblManuscript.ProjectID = tblProject.ProjectID
 LEFT JOIN tblContract ON tblContract.ContractID = tblProject.ContractID
 ORDER BY Status, Title DESC;
+
+USE projects;
+
+CREATE VIEW vewAuthors
+AS
+SELECT tblAuthor.AuthorID, tblAccount.FullName, tblAccount.Phone, tblAccount.Email,
+tblAccount.Address
+FROM tblAuthor
+LEFT JOIN tblAccount ON tblAuthor.AccountID = tblAccount.AccountID
+ORDER BY tblAuthor.AuthorID ASC;

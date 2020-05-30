@@ -15,6 +15,9 @@ create table tblAccount(
 	FirstName VARCHAR(100),
 	LastName VARCHAR(100),
 	FullName VARCHAR(250),
+    Phone VARCHAR(15),
+    Email VARCHAR(50),
+    Address VARCHAR(100),    
 	/* I got rid of UserID, it doesn't make sense */
 	PasswordHash VARCHAR(500),
 	RoleID INT,

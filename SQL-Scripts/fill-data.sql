@@ -37,23 +37,23 @@ values ('Admin', '', 'aris', 'aris');
 insert into tblRole (RoleName, RightsXML, InsertUser, LastUpdateUser)
 values ('pleb', '', 'aris', 'aris');
 
-insert into tblAccount (FirstName, LastName, FullName, PasswordHash, RoleID)
-select 'Default', 'User', 'Default User', 'asdf', RoleID
+insert into tblAccount (FirstName, LastName, FullName, Phone, Email, Address, PasswordHash, RoleID)
+select 'Default', 'User', 'Default User', '5031111111', 'i@i.com', '1234 NW asdf Ln','asdf', RoleID
 from tblRole
 where RoleName = 'Admin';
 
-insert into tblAccount (FirstName, LastName, FullName, PasswordHash, RoleID)
-select 'Jerry', 'Smith', 'Jerry M. Smith', 'fdas', RoleID
+insert into tblAccount (FirstName, LastName, FullName, Phone, Email, Address, PasswordHash, RoleID)
+select 'Jerry', 'Smith', 'Jerry M. Smith', '55555555555', 'a@a.com', '4321 SW fdsa Pl.', 'fdas', RoleID
 from tblRole
 where RoleName = 'pleb';
 
-insert into tblAccount (FirstName, LastName, FullName, PasswordHash, RoleID)
-select 'Rick', 'Writer', 'Rick Writer', 'fdaqw', RoleID
+insert into tblAccount (FirstName, LastName, FullName, Phone, Email, Address, PasswordHash, RoleID)
+select 'Rick', 'Writer', 'Rick Writer', '1234567890', 'r@r.com', '6543 SE zxcv Pl.', 'fdaqw', RoleID
 from tblRole
 where RoleName = 'pleb';
 
-insert into tblAccount (FirstName, LastName, FullName, PasswordHash, RoleID)
-select 'Baskin', 'Robbins', 'Baskin Robbins', 'afadaqw', RoleID
+insert into tblAccount (FirstName, LastName, FullName, Phone, Email, Address, PasswordHash, RoleID)
+select 'Baskin', 'Robbins', 'Baskin Robbins', '7026969696', 'g@g.com', '1010 asdfasfd 4b Apt.','afadaqw', RoleID
 from tblRole
 where RoleName = 'pleb';
 
