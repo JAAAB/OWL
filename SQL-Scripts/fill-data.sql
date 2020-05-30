@@ -170,4 +170,10 @@ insert into tblBook (ProjectID, InventoryID, ISBNID, PublishDate, LanguageID, Fo
         Price)
 select tblProject.ProjectID, 1, 1, NULL, 1, 1, 1, 29.99
 from tblProject
+where tblProject.ProjectID = 1;
 
+insert into tblBook (ProjectID, InventoryID, ISBNID, PublishDate, LanguageID, FormatID, Edition,
+        Price)
+select tblProject.ProjectID, 2, 2, '2020-05-21', 1, 1, 2, 49.99
+from tblProject
+where tblProject.ProjectID = 2;
