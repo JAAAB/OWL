@@ -56,7 +56,12 @@ async function selectSuppliersTableData(res, name, id) {
     conn = await suppliersPool.getConnection();
     console.log(`Got Connection!`);
 
-    if (id !== null) {
+    if (name === 'tblSupplier' || name === 'vewSuppliers') {
+        name = 'vewSuppliers';
+        primaryKey = 'SupplierID';
+    }
+
+    if (id !== null && primaryKey === null) {
         key = await conn.query(`SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE
             COLUMN_KEY = 'PRI' AND TABLE_NAME = '${name}';`);
 
@@ -66,13 +71,13 @@ async function selectSuppliersTableData(res, name, id) {
             var item = key_obj[i];
             for (var j in item) {
                 primaryKey = item[j];
-                //console.log("THIS IS MY PRIMARY KEY !!! : " + primaryKey);
+                //console.log("THIS IS MY PRIMARY KEY HOPEFULLY!!! : " + primaryKey);
             }
         }
     }
 
     let query = id !== null ?
-        `SELECT * FROM ${name} WHERE ${primaryKey} = '${id}' ORDER BY ${primaryKey} DESC;` :
+        `SELECT * FROM ${name} WHERE ${primaryKey} = '${id}';` :
             `SELECT * FROM ${name};`;
 
     console.log(query);
@@ -97,10 +102,66 @@ async function selectSuppliersTableData(res, name, id) {
             buildTable(res,rows);
         }
         else {
+            buildListTable(res,rows);
             return res.send(JSON.stringify(rows));
         }
     }
 }
+
+/*async function selectsupplierstabledata(res, name, id) {
+    let conn;
+    let key;
+    let primarykey;
+    let rows;
+
+    conn = await supplierspool.getconnection();
+    console.log(`got connection!`);
+
+    if (id !== null) {
+        key = await conn.query(`select column_name from information_schema.columns where
+            column_key = 'pri' and table_name = '${name}';`);
+
+        const key_obj = json.parse(json.stringify(key));
+
+        for (var i in key_obj) {
+            var item = key_obj[i];
+            for (var j in item) {
+                primarykey = item[j];
+                //console.log("this is my primary key !!! : " + primarykey);
+            }
+        }
+    }
+
+    let query = id !== null ?
+        `select * from ${name} where ${primarykey} = '${id}' order by ${primarykey} desc;` :
+            `select * from ${name};`;
+
+    console.log(query);
+
+    try {
+
+        rows = await conn.query(query);
+        console.log(`getting rows...`);
+    }
+    catch (err) {
+            console.log("error!!!");
+            throw err;
+            return null;
+    } finally {
+        if (conn) {
+            console.log(`ending connection...`);
+            conn.end();
+        }
+        console.log(`returning rows...`);
+
+        if (id !== null) {
+            buildtable(res,rows);
+        }
+        else {
+            return res.send(json.stringify(rows));
+        }
+    }
+}*/
 
 
 async function selectProjectsTableData(res, name, id) {
@@ -112,7 +173,11 @@ async function selectProjectsTableData(res, name, id) {
     conn = await projectsPool.getConnection();
     console.log(`Got Connection!`);
 
-    if (name === 'tblProject' || name === 'vewProjects') {
+    if ((name === 'tblProject' || name === 'vewProjects') && id === null) {
+        name = 'vewProjects';
+        primaryKey = 'ProjectID';
+    }
+    else if ((name === 'tblProject' || name === 'vewProjects') && id !== null) {
         name = 'vewProjects';
         primaryKey = 'ProjectID';
     }
@@ -283,6 +348,12 @@ app.get("/books", (req, res) => {
     res.sendFile(__dirname + '/public/books.html');
 
     selectProjectsTableData(res, 'vewBooks', null);
+});
+
+app.get("/suppliers", (req, res) => {
+    res.sendFile(__dirname + '/public/suppliers.html');
+
+    selectSuppliersTableData(res, 'vewSuppliers', null);
 });
 
 app.get('/editproject/:projectid', (req, res) => {

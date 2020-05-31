@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		Main Menu > Projects > New/Edit Project
-        <!--<link rel="stylesheet" href="stylesheet.css">-->
+            <!--<link rel="stylesheet" href="stylesheet.css"> -->
 		<!--<script src = "../modules/util.js"></script> -->
 	</head>
+    <style>
+    head{
+	    font-size: 17px;
+    	font-family: verdana;
+    }
+
+    body{
+	    background-color: darkgrey;
+	    font-size: 12px;
+	    font-family: verdana;
+    }
+
+    label{
+	    width: 120px;
+	    display: inline-block;
+    }
+
+    input{
+	    padding: 6px;
+	    font-size:12px;
+	    border-radius:4px;
+	    margin:8px;
+    }
+    </style>
 <body> 
 	<h1>New/Edit Project</h1>
 
@@ -47,7 +70,7 @@
                 for="notes">Description:</label><input id="notes" name="notes" style="width: 400px" value="${row.Notes}" placeholder
                             ="Project description..."</input><br><br>`;
             });
-            renderedForm += `<!-- Below this line is just for decoration, no functionality --><label style= "width:128px" for="manuscripts">Manuscripts:</label><textarea id="manuscripts" rows="6" cols="50"></textarea><br><label for="manuupload">Upload Manuscript...</label><input type="file" name="manuupload"><br><label style="width:128px" for="digitalmaterials">Digital Materials:</label><textareaid="digitalmaterials" rows="4" cols="50"></textarea><br><label for="matsupload">Upload Materials...</label><input type="file" name="matsupload"><br><button>Submit</button><!--<script>var mysql = require('mysql');var authorNames = new Array();var util = require('../modules/util.js');var queryString = "SELECT CONCAT(FirstName, '', LastName) AS Name FROM tblAccount JOIN tblAuthor ON tblAuthor.AccountID = tblAccount.AccountID;"var connection = util.getProjectsConnection();connection.query(queryString, async (err, rows, fields) => {if(err){console.log("FAILED TO GRAB AUTHORS: " + err);return;}console.log('GOT AUTHORS');})</script>--></form></div></body></html>`;
+            renderedForm += `<!-- Below this line is just for decoration, no functionality --><label style= "width:128px" for="manuscripts">Manuscripts:</label><textarea id="manuscripts" rows="6" cols="50"></textarea><br><label for="manuupload">Upload Manuscript...</label><input type="file" name="manuupload"><br><label style="width:128px" for="digitalmaterials">Digital Materials:</label><textareaid="digitalmaterials" rows="4" cols="50"></textarea><br><label for="matsupload">Upload Materials...</label><input type="file" name="matsupload"><br><button>Submit</button><!--<script>var mysql = require('mysql');var authorNames = new Array();var util = require('../modules/util.js');var queryString = "SELECT CONCAT(FirstName, '', LastName) AS Name FROM tblAccount JOIN tblAuthor ON tblAuthor.AccountID = tblAccount.AccountID;"var connection = util.getProjectsConnection();connection.query(queryString, async (err, rows, fields) => {if(err){console.log("FAILED TO GRAB AUTHORS: " + err);return;}console.log('GOT AUTHORS');})</script></form></div></body></html>`;
             document.getElementById('container').innerHTML = renderedForm;
             console.log("sent RenderedForm!");
         });
