@@ -354,6 +354,17 @@ app.get("/orders", (req, res) => {
     selectProjectsTableData(res, 'vewOrders', null);
 });
 
+app.get("/contracts", (req, res) => {
+    res.sendFile(__dirname + '/public/contracts.html');
+
+    selectProjectsTableData(res, 'vewContracts', null);
+});
+
+app.get("/reports", (req, res) => {
+    res.sendFile(__dirname + '/public/reports.html');
+
+    // do something?
+});
 
 app.get('/editproject/:projectid', (req, res) => {
 	res.sendFile(__dirname + '/public/editproject.html');

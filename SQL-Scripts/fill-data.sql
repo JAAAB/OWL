@@ -76,9 +76,6 @@ insert into tblContract (Notes, Years)
 values ('Print and EBook', 2);
 
 insert into tblContract (Notes, Years)
-values ('', 5);
-
-insert into tblContract (Notes, Years)
 values ('Exclusive deal', 10);
 
 

@@ -7,9 +7,9 @@
 			<a href="/authors">Authors</a>
 			<a href="/projects">Projects</a>
 			<a href="/books">Books</a>
-			<a class="active" href="/suppliers">Suppliers</a>
+			<a href="/suppliers">Suppliers</a>
 			<a href="/orders">Orders</a>
-			<a href="/contracts">Contracts</a>
+			<a class="active" href="/contracts">Contracts</a>
 			<a href="/reports">Reports</a>
 			<div class="topnav-right">
 				<a href="/login.html">Log In</a>
@@ -17,10 +17,10 @@
 		</div>
 </head>
 <body> 
-  <h1>View Suppliers</h1>
-    <div id="addsupplier" align="center">
-<form action="/newsupplier.html" method="get">
-    <input type="submit" name="Add Supplier" value="Add Supplier" />
+  <h1>View Contracts</h1>
+    <div id="addcontract" align="center">
+<form action="/newcontract.html" method="get">
+    <input type="submit" name="Add Contract" value="Add Contract" />
 </form>
 <br>
     </div>
@@ -37,12 +37,11 @@
 
       document.getElementById('container').innerHTML = '';
             let renderedTable =
-                    `<table><tr><th>SupplierID</th><th>SupplierName</th><th>Email</th><th>PhoneNumber</th><th>Address</th><th>Average
-                    Rating</th><th>Average Cost</th><th>Amount Owed</th><th>Service Type</th>`
+                    `<table><tr><th>ContractID</th><th>ProjectID</th><th>Title</th><th>Notes</th><th>Years</th>`
 
       rows.map((row) => { 
-      renderedTable += `<tr><td><a href=/editsupplier/${row.SupplierID}>${row.SupplierID}</a></td><td>${row.SupplierName}</td><td>${row.Email}</td><td>${row.PhoneNumber}</td><td>${row.Address}</td><td>${row.AvgRating}</td><td>${row.AvgCost}</td><td>${row.AmountOwed}</td><td>${row.ServiceType}</td></tr>`;
-      });
+      renderedTable += `<tr><td><a
+              href=/editcontract/${row.ContractID}>${row.ContractID}</a></td><td>${row.ProjectID}</td><td>${row.Title}</td><td>${row.Notes}</td><td>${row.Years}</td></tr>`});
       renderedTable += `</table>`;
       document.getElementById('container').innerHTML = renderedTable;
       console.log(renderedTable);

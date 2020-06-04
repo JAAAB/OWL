@@ -75,3 +75,12 @@ LEFT JOIN tblOrderItem ON tblOrderItem.OrderID = tblOrder.OrderID
 LEFT JOIN tblCustomer ON tblCustomer.CustomerID = tblOrderItem.CustomerID
 LEFT JOIN tblBook ON tblBook.BookID = tblOrderItem.BookID
 ORDER BY tblOrder.OrderID ASC;
+
+CREATE VIEW vewContracts
+AS
+SELECT tblContract.ContractID, tblProject.ProjectID, tblProject.Title, tblContract.Notes,
+tblContract.Years
+FROM tblContract
+LEFT JOIN tblProject ON tblContract.ContractID = tblProject.ProjectID
+ORDER BY ContractID ASC;
+
