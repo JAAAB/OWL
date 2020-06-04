@@ -1,0 +1,856 @@
+-- MariaDB dump 10.17  Distrib 10.4.13-MariaDB, for Linux (x86_64)
+--
+-- Host: localhost    Database: projects
+-- ------------------------------------------------------
+-- Server version	10.4.13-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `projects`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `projects` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+
+USE `projects`;
+
+--
+-- Table structure for table `tblAccount`
+--
+
+DROP TABLE IF EXISTS `tblAccount`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblAccount` (
+  `AccountID` int(11) NOT NULL AUTO_INCREMENT,
+  `FirstName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `LastName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `FullName` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Phone` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Email` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PasswordHash` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `RoleID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`AccountID`),
+  KEY `RoleID` (`RoleID`),
+  CONSTRAINT `tblAccount_ibfk_1` FOREIGN KEY (`RoleID`) REFERENCES `tblRole` (`RoleID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblAccount`
+--
+
+LOCK TABLES `tblAccount` WRITE;
+/*!40000 ALTER TABLE `tblAccount` DISABLE KEYS */;
+INSERT INTO `tblAccount` VALUES (1,'Default','User','Default User','5031111111','i@i.com','1234 NW asdf Ln','asdf',1),(2,'Jerry','Smith','Jerry M. Smith','55555555555','a@a.com','4321 SW fdsa Pl.','fdas',2),(3,'Rick','Writer','Rick Writer','1234567890','r@r.com','6543 SE zxcv Pl.','fdaqw',2),(4,'Baskin','Robbins','Baskin Robbins','7026969696','g@g.com','1010 asdfasfd 4b Apt.','afadaqw',2);
+/*!40000 ALTER TABLE `tblAccount` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblAuthor`
+--
+
+DROP TABLE IF EXISTS `tblAuthor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblAuthor` (
+  `AuthorID` int(11) NOT NULL AUTO_INCREMENT,
+  `AccountID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`AuthorID`),
+  KEY `AccountID` (`AccountID`),
+  CONSTRAINT `tblAuthor_ibfk_1` FOREIGN KEY (`AccountID`) REFERENCES `tblAccount` (`AccountID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblAuthor`
+--
+
+LOCK TABLES `tblAuthor` WRITE;
+/*!40000 ALTER TABLE `tblAuthor` DISABLE KEYS */;
+INSERT INTO `tblAuthor` VALUES (1,2),(2,3),(3,4);
+/*!40000 ALTER TABLE `tblAuthor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblBook`
+--
+
+DROP TABLE IF EXISTS `tblBook`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblBook` (
+  `BookID` int(11) NOT NULL AUTO_INCREMENT,
+  `ProjectID` int(11) DEFAULT NULL,
+  `InventoryID` int(11) DEFAULT NULL,
+  `ISBNID` int(11) DEFAULT NULL,
+  `PublishDate` date DEFAULT NULL,
+  `LanguageID` int(11) DEFAULT NULL,
+  `FormatID` int(11) DEFAULT NULL,
+  `Edition` int(11) DEFAULT NULL,
+  `Price` decimal(15,2) DEFAULT NULL,
+  PRIMARY KEY (`BookID`),
+  KEY `ProjectID` (`ProjectID`),
+  KEY `InventoryID` (`InventoryID`),
+  KEY `ISBNID` (`ISBNID`),
+  KEY `LanguageID` (`LanguageID`),
+  KEY `FormatID` (`FormatID`),
+  CONSTRAINT `tblBook_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `tblProject` (`ProjectID`),
+  CONSTRAINT `tblBook_ibfk_2` FOREIGN KEY (`InventoryID`) REFERENCES `tblInventory` (`InventoryID`),
+  CONSTRAINT `tblBook_ibfk_3` FOREIGN KEY (`ISBNID`) REFERENCES `tblISBN` (`ISBNID`),
+  CONSTRAINT `tblBook_ibfk_4` FOREIGN KEY (`LanguageID`) REFERENCES `tblLanguage` (`LanguageID`),
+  CONSTRAINT `tblBook_ibfk_5` FOREIGN KEY (`FormatID`) REFERENCES `tblFormat` (`FormatID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblBook`
+--
+
+LOCK TABLES `tblBook` WRITE;
+/*!40000 ALTER TABLE `tblBook` DISABLE KEYS */;
+INSERT INTO `tblBook` VALUES (1,1,1,1,NULL,1,1,1,29.99),(2,2,2,2,'2020-05-21',1,1,2,49.99);
+/*!40000 ALTER TABLE `tblBook` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblContract`
+--
+
+DROP TABLE IF EXISTS `tblContract`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblContract` (
+  `ContractID` int(11) NOT NULL AUTO_INCREMENT,
+  `Notes` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Years` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ContractID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblContract`
+--
+
+LOCK TABLES `tblContract` WRITE;
+/*!40000 ALTER TABLE `tblContract` DISABLE KEYS */;
+INSERT INTO `tblContract` VALUES (1,'Print and EBook',2),(2,'Exclusive deal',10);
+/*!40000 ALTER TABLE `tblContract` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblCustomer`
+--
+
+DROP TABLE IF EXISTS `tblCustomer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblCustomer` (
+  `CustomerID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Email` varchar(75) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PhoneNumber` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ServiceType` int(11) NOT NULL,
+  PRIMARY KEY (`CustomerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblCustomer`
+--
+
+LOCK TABLES `tblCustomer` WRITE;
+/*!40000 ALTER TABLE `tblCustomer` DISABLE KEYS */;
+INSERT INTO `tblCustomer` VALUES (1,'Barnes & Noble','bn@bn.com','5032121212','1431 SE STREET St.',2),(2,'XYZ Books','asdf@books.xyz','1010232334','000 ZXY Terrace',1);
+/*!40000 ALTER TABLE `tblCustomer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblFormat`
+--
+
+DROP TABLE IF EXISTS `tblFormat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblFormat` (
+  `FormatID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`FormatID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblFormat`
+--
+
+LOCK TABLES `tblFormat` WRITE;
+/*!40000 ALTER TABLE `tblFormat` DISABLE KEYS */;
+INSERT INTO `tblFormat` VALUES (1,'Hard Cover'),(2,'PDF');
+/*!40000 ALTER TABLE `tblFormat` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblISBN`
+--
+
+DROP TABLE IF EXISTS `tblISBN`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblISBN` (
+  `ISBNID` int(11) NOT NULL AUTO_INCREMENT,
+  `ProjectID` int(11) DEFAULT NULL,
+  `ISBNNumber` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`ISBNID`),
+  UNIQUE KEY `ISBNNumber` (`ISBNNumber`) USING HASH,
+  KEY `ProjectID` (`ProjectID`),
+  CONSTRAINT `tblISBN_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `tblProject` (`ProjectID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblISBN`
+--
+
+LOCK TABLES `tblISBN` WRITE;
+/*!40000 ALTER TABLE `tblISBN` DISABLE KEYS */;
+INSERT INTO `tblISBN` VALUES (1,NULL,'978-0-13-601970-1'),(2,NULL,'979-1-13-602969-1');
+/*!40000 ALTER TABLE `tblISBN` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblInventory`
+--
+
+DROP TABLE IF EXISTS `tblInventory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblInventory` (
+  `InventoryID` int(11) NOT NULL AUTO_INCREMENT,
+  `Count` int(11) DEFAULT NULL,
+  PRIMARY KEY (`InventoryID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblInventory`
+--
+
+LOCK TABLES `tblInventory` WRITE;
+/*!40000 ALTER TABLE `tblInventory` DISABLE KEYS */;
+INSERT INTO `tblInventory` VALUES (1,1500),(2,10000);
+/*!40000 ALTER TABLE `tblInventory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblLanguage`
+--
+
+DROP TABLE IF EXISTS `tblLanguage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblLanguage` (
+  `LanguageID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `CharacterEncoding` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`LanguageID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblLanguage`
+--
+
+LOCK TABLES `tblLanguage` WRITE;
+/*!40000 ALTER TABLE `tblLanguage` DISABLE KEYS */;
+INSERT INTO `tblLanguage` VALUES (1,'English','utf8'),(2,'Japanese','jisX0201');
+/*!40000 ALTER TABLE `tblLanguage` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblManuscript`
+--
+
+DROP TABLE IF EXISTS `tblManuscript`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblManuscript` (
+  `ManuscriptID` int(11) NOT NULL AUTO_INCREMENT,
+  `ProjectID` int(11) DEFAULT NULL,
+  `InactiveDate` date DEFAULT NULL,
+  PRIMARY KEY (`ManuscriptID`),
+  KEY `ProjectID` (`ProjectID`),
+  CONSTRAINT `tblManuscript_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `tblProject` (`ProjectID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblManuscript`
+--
+
+LOCK TABLES `tblManuscript` WRITE;
+/*!40000 ALTER TABLE `tblManuscript` DISABLE KEYS */;
+INSERT INTO `tblManuscript` VALUES (1,2,NULL),(2,1,NULL);
+/*!40000 ALTER TABLE `tblManuscript` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblManuscriptVersion`
+--
+
+DROP TABLE IF EXISTS `tblManuscriptVersion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblManuscriptVersion` (
+  `ManuscriptVersionID` int(11) NOT NULL AUTO_INCREMENT,
+  `ManuscriptID` int(11) DEFAULT NULL,
+  `InsertDate` date DEFAULT NULL,
+  `ActiveFlag` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ManuscriptVersionID`),
+  KEY `ManuscriptID` (`ManuscriptID`),
+  CONSTRAINT `tblManuscriptVersion_ibfk_1` FOREIGN KEY (`ManuscriptID`) REFERENCES `tblManuscript` (`ManuscriptID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblManuscriptVersion`
+--
+
+LOCK TABLES `tblManuscriptVersion` WRITE;
+/*!40000 ALTER TABLE `tblManuscriptVersion` DISABLE KEYS */;
+INSERT INTO `tblManuscriptVersion` VALUES (1,1,'2020-06-03',0),(2,2,'2020-05-30',1),(3,1,'2020-06-04',1);
+/*!40000 ALTER TABLE `tblManuscriptVersion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblManuscriptVersionContent`
+--
+
+DROP TABLE IF EXISTS `tblManuscriptVersionContent`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblManuscriptVersionContent` (
+  `ManuscriptVersionContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `ManuscriptVersionID` int(11) DEFAULT NULL,
+  `Content` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Notes` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ManuscriptVersionContentID`),
+  KEY `ManuscriptVersionID` (`ManuscriptVersionID`),
+  CONSTRAINT `tblManuscriptVersionContent_ibfk_1` FOREIGN KEY (`ManuscriptVersionID`) REFERENCES `tblManuscriptVersion` (`ManuscriptVersionID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblManuscriptVersionContent`
+--
+
+LOCK TABLES `tblManuscriptVersionContent` WRITE;
+/*!40000 ALTER TABLE `tblManuscriptVersionContent` DISABLE KEYS */;
+INSERT INTO `tblManuscriptVersionContent` VALUES (1,3,'CONTENT CONTENT CONTENT','WOO NICE JOB BOIS!');
+/*!40000 ALTER TABLE `tblManuscriptVersionContent` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblOrder`
+--
+
+DROP TABLE IF EXISTS `tblOrder`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblOrder` (
+  `OrderID` int(11) NOT NULL AUTO_INCREMENT,
+  `BookID` int(11) DEFAULT NULL,
+  `InsertDate` date NOT NULL,
+  `IsComplete` tinyint(1) NOT NULL,
+  `Total` decimal(15,2) DEFAULT NULL,
+  `IsPaid` tinyint(1) NOT NULL,
+  PRIMARY KEY (`OrderID`),
+  KEY `BookID` (`BookID`),
+  CONSTRAINT `tblOrder_ibfk_1` FOREIGN KEY (`BookID`) REFERENCES `tblBook` (`BookID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblOrder`
+--
+
+LOCK TABLES `tblOrder` WRITE;
+/*!40000 ALTER TABLE `tblOrder` DISABLE KEYS */;
+INSERT INTO `tblOrder` VALUES (1,2,'2019-04-21',1,0.00,1),(2,1,'2020-01-22',0,0.00,0);
+/*!40000 ALTER TABLE `tblOrder` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblOrderItem`
+--
+
+DROP TABLE IF EXISTS `tblOrderItem`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblOrderItem` (
+  `OrderItemID` int(11) NOT NULL AUTO_INCREMENT,
+  `OrderID` int(11) DEFAULT NULL,
+  `BookID` int(11) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL,
+  `CustomerID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`OrderItemID`),
+  KEY `OrderID` (`OrderID`),
+  KEY `BookID` (`BookID`),
+  KEY `CustomerID` (`CustomerID`),
+  CONSTRAINT `tblOrderItem_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `tblOrder` (`OrderID`),
+  CONSTRAINT `tblOrderItem_ibfk_2` FOREIGN KEY (`BookID`) REFERENCES `tblBook` (`BookID`),
+  CONSTRAINT `tblOrderItem_ibfk_3` FOREIGN KEY (`CustomerID`) REFERENCES `tblCustomer` (`CustomerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblOrderItem`
+--
+
+LOCK TABLES `tblOrderItem` WRITE;
+/*!40000 ALTER TABLE `tblOrderItem` DISABLE KEYS */;
+INSERT INTO `tblOrderItem` VALUES (1,2,1,150000,2),(2,1,2,500000,1);
+/*!40000 ALTER TABLE `tblOrderItem` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblProject`
+--
+
+DROP TABLE IF EXISTS `tblProject`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblProject` (
+  `ProjectID` int(11) NOT NULL AUTO_INCREMENT,
+  `AuthorID` int(11) DEFAULT NULL,
+  `ContractID` int(11) DEFAULT NULL,
+  `Title` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Notes` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Edition` decimal(10,0) DEFAULT NULL,
+  `ApprovalDate` date DEFAULT NULL,
+  `isActive` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ProjectID`),
+  KEY `AuthorID` (`AuthorID`),
+  KEY `ContractID` (`ContractID`),
+  CONSTRAINT `tblProject_ibfk_1` FOREIGN KEY (`AuthorID`) REFERENCES `tblAuthor` (`AuthorID`),
+  CONSTRAINT `tblProject_ibfk_2` FOREIGN KEY (`ContractID`) REFERENCES `tblContract` (`ContractID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblProject`
+--
+
+LOCK TABLES `tblProject` WRITE;
+/*!40000 ALTER TABLE `tblProject` DISABLE KEYS */;
+INSERT INTO `tblProject` VALUES (1,3,1,'Dragon-Bjorn','A story about a Swedish man making love to an American dragon',2,'2018-03-03',1),(2,2,2,'Fe-man!','The ballad of He-man, but in an alternate reality!!!',2,'2020-01-25',1);
+/*!40000 ALTER TABLE `tblProject` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblRole`
+--
+
+DROP TABLE IF EXISTS `tblRole`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblRole` (
+  `RoleID` int(11) NOT NULL AUTO_INCREMENT,
+  `RoleName` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `RightsXML` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `InsertUser` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `LastUpdateUser` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`RoleID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblRole`
+--
+
+LOCK TABLES `tblRole` WRITE;
+/*!40000 ALTER TABLE `tblRole` DISABLE KEYS */;
+INSERT INTO `tblRole` VALUES (1,'Admin','','aris','aris'),(2,'pleb','','aris','aris');
+/*!40000 ALTER TABLE `tblRole` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `vewAuthors`
+--
+
+DROP TABLE IF EXISTS `vewAuthors`;
+/*!50001 DROP VIEW IF EXISTS `vewAuthors`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vewAuthors` (
+  `AuthorID` tinyint NOT NULL,
+  `FullName` tinyint NOT NULL,
+  `Phone` tinyint NOT NULL,
+  `Email` tinyint NOT NULL,
+  `Address` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vewBooks`
+--
+
+DROP TABLE IF EXISTS `vewBooks`;
+/*!50001 DROP VIEW IF EXISTS `vewBooks`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vewBooks` (
+  `BookID` tinyint NOT NULL,
+  `ISBNNumber` tinyint NOT NULL,
+  `Title` tinyint NOT NULL,
+  `FullName` tinyint NOT NULL,
+  `FormatName` tinyint NOT NULL,
+  `Edition` tinyint NOT NULL,
+  `Price` tinyint NOT NULL,
+  `LanguageName` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vewContracts`
+--
+
+DROP TABLE IF EXISTS `vewContracts`;
+/*!50001 DROP VIEW IF EXISTS `vewContracts`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vewContracts` (
+  `ContractID` tinyint NOT NULL,
+  `ProjectID` tinyint NOT NULL,
+  `Title` tinyint NOT NULL,
+  `Notes` tinyint NOT NULL,
+  `Years` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vewOrders`
+--
+
+DROP TABLE IF EXISTS `vewOrders`;
+/*!50001 DROP VIEW IF EXISTS `vewOrders`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vewOrders` (
+  `OrderID` tinyint NOT NULL,
+  `Name` tinyint NOT NULL,
+  `Date` tinyint NOT NULL,
+  `TotalItems` tinyint NOT NULL,
+  `TotalPrice` tinyint NOT NULL,
+  `Status` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vewProjects`
+--
+
+DROP TABLE IF EXISTS `vewProjects`;
+/*!50001 DROP VIEW IF EXISTS `vewProjects`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vewProjects` (
+  `ProjectID` tinyint NOT NULL,
+  `Title` tinyint NOT NULL,
+  `Author` tinyint NOT NULL,
+  `Edition` tinyint NOT NULL,
+  `Status` tinyint NOT NULL,
+  `ApprovalDate` tinyint NOT NULL,
+  `Years` tinyint NOT NULL,
+  `Notes` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Current Database: `suppliers`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `suppliers` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+
+USE `suppliers`;
+
+--
+-- Table structure for table `tblPrinter`
+--
+
+DROP TABLE IF EXISTS `tblPrinter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblPrinter` (
+  `PrinterID` int(11) NOT NULL AUTO_INCREMENT,
+  `SupplierID` int(11) DEFAULT NULL,
+  `AvgCost` int(11) DEFAULT NULL,
+  `AvgRating` int(11) DEFAULT NULL,
+  PRIMARY KEY (`PrinterID`),
+  KEY `SupplierID` (`SupplierID`),
+  CONSTRAINT `tblPrinter_ibfk_1` FOREIGN KEY (`SupplierID`) REFERENCES `tblSupplier` (`SupplierID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblPrinter`
+--
+
+LOCK TABLES `tblPrinter` WRITE;
+/*!40000 ALTER TABLE `tblPrinter` DISABLE KEYS */;
+INSERT INTO `tblPrinter` VALUES (1,1,300,4);
+/*!40000 ALTER TABLE `tblPrinter` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblSupplier`
+--
+
+DROP TABLE IF EXISTS `tblSupplier`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblSupplier` (
+  `SupplierID` int(11) NOT NULL AUTO_INCREMENT,
+  `SupplierName` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Email` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Address` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PhoneNumber` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `CellPhoneNumber` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`SupplierID`),
+  UNIQUE KEY `suppliers_unique` (`SupplierID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblSupplier`
+--
+
+LOCK TABLES `tblSupplier` WRITE;
+/*!40000 ALTER TABLE `tblSupplier` DISABLE KEYS */;
+INSERT INTO `tblSupplier` VALUES (1,'Dunder Mifflin','michael@dunder.com','1725 Slough Avenue','5039999999','50499999998'),(2,'Types R Us','types@rus.ru','1432 SW Kalashnikov Ave.','4325436543',NULL),(3,'Stereo-Typists','dontfukwitus@types.com','11 Wall St, New York, NY 10005','1010010010',NULL);
+/*!40000 ALTER TABLE `tblSupplier` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblSupplierPayment`
+--
+
+DROP TABLE IF EXISTS `tblSupplierPayment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblSupplierPayment` (
+  `SupplierPaymentID` int(11) NOT NULL AUTO_INCREMENT,
+  `SupplierID` int(11) DEFAULT NULL,
+  `AmountOwed` int(11) DEFAULT NULL,
+  `CheckNumber` int(11) DEFAULT NULL,
+  PRIMARY KEY (`SupplierPaymentID`),
+  KEY `SupplierID` (`SupplierID`),
+  CONSTRAINT `tblSupplierPayment_ibfk_1` FOREIGN KEY (`SupplierID`) REFERENCES `tblSupplier` (`SupplierID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblSupplierPayment`
+--
+
+LOCK TABLES `tblSupplierPayment` WRITE;
+/*!40000 ALTER TABLE `tblSupplierPayment` DISABLE KEYS */;
+INSERT INTO `tblSupplierPayment` VALUES (1,3,500,NULL);
+/*!40000 ALTER TABLE `tblSupplierPayment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tblTypesetter`
+--
+
+DROP TABLE IF EXISTS `tblTypesetter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblTypesetter` (
+  `TypesetterID` int(11) NOT NULL AUTO_INCREMENT,
+  `SupplierID` int(11) DEFAULT NULL,
+  `AvgCost` int(11) DEFAULT NULL,
+  `AvgRating` int(11) DEFAULT NULL,
+  PRIMARY KEY (`TypesetterID`),
+  KEY `SupplierID` (`SupplierID`),
+  CONSTRAINT `tblTypesetter_ibfk_1` FOREIGN KEY (`SupplierID`) REFERENCES `tblSupplier` (`SupplierID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tblTypesetter`
+--
+
+LOCK TABLES `tblTypesetter` WRITE;
+/*!40000 ALTER TABLE `tblTypesetter` DISABLE KEYS */;
+INSERT INTO `tblTypesetter` VALUES (1,2,350,3),(2,3,500,2);
+/*!40000 ALTER TABLE `tblTypesetter` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `vewSuppliers`
+--
+
+DROP TABLE IF EXISTS `vewSuppliers`;
+/*!50001 DROP VIEW IF EXISTS `vewSuppliers`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vewSuppliers` (
+  `SupplierID` tinyint NOT NULL,
+  `SupplierName` tinyint NOT NULL,
+  `Email` tinyint NOT NULL,
+  `PhoneNumber` tinyint NOT NULL,
+  `Address` tinyint NOT NULL,
+  `AvgRating` tinyint NOT NULL,
+  `AvgCost` tinyint NOT NULL,
+  `AmountOwed` tinyint NOT NULL,
+  `ServiceType` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Current Database: `projects`
+--
+
+USE `projects`;
+
+--
+-- Final view structure for view `vewAuthors`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vewAuthors`*/;
+/*!50001 DROP VIEW IF EXISTS `vewAuthors`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`owl`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vewAuthors` AS select `tblAuthor`.`AuthorID` AS `AuthorID`,`tblAccount`.`FullName` AS `FullName`,`tblAccount`.`Phone` AS `Phone`,`tblAccount`.`Email` AS `Email`,`tblAccount`.`Address` AS `Address` from (`tblAuthor` left join `tblAccount` on(`tblAuthor`.`AccountID` = `tblAccount`.`AccountID`)) order by `tblAuthor`.`AuthorID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vewBooks`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vewBooks`*/;
+/*!50001 DROP VIEW IF EXISTS `vewBooks`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`owl`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vewBooks` AS select `tblBook`.`BookID` AS `BookID`,`tblISBN`.`ISBNNumber` AS `ISBNNumber`,`tblProject`.`Title` AS `Title`,`tblAccount`.`FullName` AS `FullName`,`tblFormat`.`Name` AS `FormatName`,`tblBook`.`Edition` AS `Edition`,`tblBook`.`Price` AS `Price`,`tblLanguage`.`Name` AS `LanguageName` from ((((((`tblBook` left join `tblISBN` on(`tblISBN`.`ISBNID` = `tblBook`.`ISBNID`)) left join `tblProject` on(`tblProject`.`ProjectID` = `tblBook`.`ProjectID`)) left join `tblAuthor` on(`tblAuthor`.`AuthorID` = `tblProject`.`AuthorID`)) left join `tblAccount` on(`tblAccount`.`AccountID` = `tblAuthor`.`AccountID`)) left join `tblFormat` on(`tblFormat`.`FormatID` = `tblBook`.`FormatID`)) left join `tblLanguage` on(`tblLanguage`.`LanguageID` = `tblBook`.`LanguageID`)) order by `tblISBN`.`ISBNNumber` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vewContracts`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vewContracts`*/;
+/*!50001 DROP VIEW IF EXISTS `vewContracts`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`owl`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vewContracts` AS select `tblContract`.`ContractID` AS `ContractID`,`tblProject`.`ProjectID` AS `ProjectID`,`tblProject`.`Title` AS `Title`,`tblContract`.`Notes` AS `Notes`,`tblContract`.`Years` AS `Years` from (`tblContract` left join `tblProject` on(`tblContract`.`ContractID` = `tblProject`.`ProjectID`)) order by `tblContract`.`ContractID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vewOrders`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vewOrders`*/;
+/*!50001 DROP VIEW IF EXISTS `vewOrders`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`owl`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vewOrders` AS select `tblOrder`.`OrderID` AS `OrderID`,`tblCustomer`.`Name` AS `Name`,`tblOrder`.`InsertDate` AS `Date`,`tblOrderItem`.`Quantity` AS `TotalItems`,`tblOrderItem`.`Quantity` * `tblBook`.`Price` AS `TotalPrice`,case when `tblOrder`.`IsPaid` = 1 then 'PAID' else 'NOT PAID' end AS `Status` from (((`tblOrder` left join `tblOrderItem` on(`tblOrderItem`.`OrderID` = `tblOrder`.`OrderID`)) left join `tblCustomer` on(`tblCustomer`.`CustomerID` = `tblOrderItem`.`CustomerID`)) left join `tblBook` on(`tblBook`.`BookID` = `tblOrderItem`.`BookID`)) order by `tblOrder`.`OrderID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vewProjects`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vewProjects`*/;
+/*!50001 DROP VIEW IF EXISTS `vewProjects`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`owl`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vewProjects` AS select `tblProject`.`ProjectID` AS `ProjectID`,`tblProject`.`Title` AS `Title`,concat(`tblAccount`.`FirstName`,' ',`tblAccount`.`LastName`) AS `Author`,case when `tblProject`.`Edition` is null then '0' else `tblProject`.`Edition` end AS `Edition`,case when `tblProject`.`isActive` then 'Active' else 'Inactive' end AS `Status`,`tblProject`.`ApprovalDate` AS `ApprovalDate`,`tblContract`.`Years` AS `Years`,`tblProject`.`Notes` AS `Notes` from ((((`tblProject` left join `tblAuthor` on(`tblProject`.`AuthorID` = `tblAuthor`.`AuthorID`)) left join `tblAccount` on(`tblAuthor`.`AccountID` = `tblAccount`.`AccountID`)) left join `tblManuscript` on(`tblManuscript`.`ProjectID` = `tblProject`.`ProjectID`)) left join `tblContract` on(`tblContract`.`ContractID` = `tblProject`.`ContractID`)) order by case when `tblProject`.`isActive` then 'Active' else 'Inactive' end,`tblProject`.`Title` desc */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Current Database: `suppliers`
+--
+
+USE `suppliers`;
+
+--
+-- Final view structure for view `vewSuppliers`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vewSuppliers`*/;
+/*!50001 DROP VIEW IF EXISTS `vewSuppliers`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`owl`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vewSuppliers` AS select `tblSupplier`.`SupplierID` AS `SupplierID`,`tblSupplier`.`SupplierName` AS `SupplierName`,`tblSupplier`.`Email` AS `Email`,`tblSupplier`.`PhoneNumber` AS `PhoneNumber`,`tblSupplier`.`Address` AS `Address`,coalesce(`tblTypesetter`.`AvgRating`,`tblPrinter`.`AvgRating`) AS `AvgRating`,coalesce(`tblTypesetter`.`AvgCost`,`tblPrinter`.`AvgCost`) AS `AvgCost`,`tblSupplierPayment`.`AmountOwed` AS `AmountOwed`,case when `tblTypesetter`.`TypesetterID` is null then 'Printer' when `tblPrinter`.`PrinterID` is null then 'Typesetter' else 'ERR or TS' end AS `ServiceType` from (((`tblSupplier` left join `tblTypesetter` on(`tblSupplier`.`SupplierID` = `tblTypesetter`.`SupplierID`)) left join `tblPrinter` on(`tblSupplier`.`SupplierID` = `tblPrinter`.`SupplierID`)) left join `tblSupplierPayment` on(`tblSupplier`.`SupplierID` = `tblSupplierPayment`.`SupplierID`)) order by `tblSupplier`.`SupplierID` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-06-04 14:43:14
