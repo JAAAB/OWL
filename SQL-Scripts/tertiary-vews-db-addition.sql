@@ -64,3 +64,14 @@ LEFT JOIN tblAccount ON tblAccount.AccountID = tblAuthor.AccountID
 LEFT JOIN tblFormat ON tblFormat.FormatID = tblBook.FormatID
 LEFT JOIN tblLanguage ON tblLanguage.LanguageID = tblBook.LanguageID
 ORDER BY tblISBN.ISBNNumber ASC;
+
+CREATE VIEW vewOrders
+AS
+SELECT tblOrder.OrderID, tblCustomer.Name, tblOrder.InsertDate AS `Date`, tblOrderItem.Quantity AS
+TotalItems, tblOrderItem.Quantity * tblBook.Price AS TotalPrice, 
+CASE WHEN tblOrder.IsPaid = 1 THEN 'PAID'ELSE 'NOT PAID' END AS Status
+FROM tblOrder
+LEFT JOIN tblOrderItem ON tblOrderItem.OrderID = tblOrder.OrderID
+LEFT JOIN tblCustomer ON tblCustomer.CustomerID = tblOrderItem.CustomerID
+LEFT JOIN tblBook ON tblBook.BookID = tblOrderItem.BookID
+ORDER BY tblOrder.OrderID ASC;

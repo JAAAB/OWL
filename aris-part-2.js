@@ -348,6 +348,13 @@ app.get("/suppliers", (req, res) => {
     selectSuppliersTableData(res, 'vewSuppliers', null);
 });
 
+app.get("/orders", (req, res) => {
+    res.sendFile(__dirname + '/public/orders.html');
+
+    selectProjectsTableData(res, 'vewOrders', null);
+});
+
+
 app.get('/editproject/:projectid', (req, res) => {
 	res.sendFile(__dirname + '/public/editproject.html');
 

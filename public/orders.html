@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  		<link rel="stylesheet" href="stylesheet.css">
+  		<div class="topnav">
+			<a href="/index.html">Home</a>
+			<a href="/authors">Authors</a>
+			<a href="/projects">Projects</a>
+			<a href="/books">Books</a>
+			<a class="active" href="/suppliers">Suppliers</a>
+			<a href="/orders">Orders</a>
+			<a href="/contracts">Contracts</a>
+			<a href="/reports">Reports</a>
+			<div class="topnav-right">
+				<a href="/login.html">Log In</a>
+			</div>
+		</div>
+</head>
+<body> 
+  <h1>View Orders</h1>
+    <div id="addorder" align="center">
+<form action="/neworder.html" method="get">
+    <input type="submit" name="Add Order" value="Add Order" />
+</form>
+<br>
+    </div>
+
+  <div id="container">
+    Loading...
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    socket.on('dbResponse', (rows) => {
+      console.log("Working in HTML...");
+
+      document.getElementById('container').innerHTML = '';
+            let renderedTable =
+                    `<table><tr><th>OrderID</th><th>Name</th><th>Date</th><th>TotalItems</th><th>TotalPrice</th><th>Status</th>`
+
+      rows.map((row) => { 
+      var myprice = row.TotalPrice;
+      var mappedprice;
+        try {
+          mappedprice = myprice.toLocaleString('us-US', { style: 'currency', currency: 'USD'});
+        } catch (error) {
+          mappedprice = myprice;
+          console.log(error);
+        }
+      renderedTable += `<tr><td><a
+              href=/editorder/${row.OrderID}>${row.OrderID}</a></td><td>${row.Name}</td><td>${row.Date}</td><td>${row.TotalItems}</td><td>${mappedprice}</td><td>${row.Status}</td></tr>`;
+      });
+      renderedTable += `</table>`;
+      document.getElementById('container').innerHTML = renderedTable;
+      console.log(renderedTable);
+    });
+  </script>
+
+</body>
+</html>

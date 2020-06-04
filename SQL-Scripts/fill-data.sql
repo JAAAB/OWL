@@ -177,3 +177,42 @@ insert into tblBook (ProjectID, InventoryID, ISBNID, PublishDate, LanguageID, Fo
 select tblProject.ProjectID, 2, 2, '2020-05-21', 1, 1, 2, 49.99
 from tblProject
 where tblProject.ProjectID = 2;
+/*
+insert into tblSales (BookID, Count)
+SELECT BookID, 53950
+FROM tblBook
+WHERE BookID = 1;
+
+insert into tblSales (BookID, Count)
+SELECT BookID, 491020
+FROM tblBook
+WHERE BookID = 2;
+*/
+insert into tblCustomer (Name, Email, PhoneNumber, Address, ServiceType)
+VALUES('Barnes & Noble', 'bn@bn.com', '5032121212', '1431 SE STREET St.', 2);
+
+insert into tblCustomer (Name, Email, PhoneNumber, Address, ServiceType)
+VALUES('XYZ Books', 'asdf@books.xyz', '1010232334', '000 ZXY Terrace', 1);
+
+insert into tblOrder (BookID, InsertDate, IsComplete, Total, IsPaid)
+SELECT tblBook.BookID, '2019-04-21',1,0, 1
+FROM tblBook
+WHERE tblBook.BookID = 2;
+
+insert into tblOrder (BookID, InsertDate, IsComplete, Total, IsPaid)
+SELECT tblBook.BookID, '2020-01-22',0,0, 0
+FROM tblBook
+WHERE tblBook.BookID = 1;
+
+insert into tblOrderItem (OrderID, BookID, Quantity, CustomerID)
+SELECT tblOrder.OrderID, tblBook.BookID, 150000, 2
+from tblOrder
+join tblBook on tblBook.BookID = tblOrder.BookID
+where tblBook.BookID = 1;
+
+insert into tblOrderItem (OrderID, BookID, Quantity, CustomerID)
+SELECT tblOrder.OrderID, tblBook.BookID, 500000, 1
+from tblOrder
+join tblBook on tblBook.BookID = tblOrder.BookID
+where tblBook.BookID = 2;
+

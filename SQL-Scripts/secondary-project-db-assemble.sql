@@ -119,26 +119,38 @@ create table tblBook(
 
 create table tblOrder(
 	OrderID INT AUTO_INCREMENT PRIMARY KEY,
+    BookID INT,
 	InsertDate DATE NOT NULL,
 	IsComplete BOOLEAN NOT NULL,
 	Total DECIMAL(15,2),
-	IsPaid BOOLEAN NOT NULL
+	IsPaid BOOLEAN NOT NULL,
+    FOREIGN KEY(BookID) REFERENCES tblBook(BookID)
 );
 
-create table tblSales(
+/*create table tblSales(
 	SalesID INT AUTO_INCREMENT PRIMARY KEY,
 	BookID INT,
 	Count INT,
 	FOREIGN KEY(BookID) REFERENCES tblBook(BookID)
+);*/
+
+create table tblCustomer(
+    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    Email VARCHAR(75) NOT NULL,
+    PhoneNumber VARCHAR(12),
+    Address VARCHAR(255),
+    ServiceType INT NOT NULL
 );
 
 create table tblOrderItem(
 	OrderItemID INT AUTO_INCREMENT PRIMARY KEY,
 	OrderID INT,
-	BookID INT,
+    BookID INT,
 	Quantity INT,
+    CustomerID INT,
 	FOREIGN KEY(OrderID) REFERENCES tblOrder(OrderID),
-	FOREIGN KEY(BookID) REFERENCES tblBook(BookID)
+	FOREIGN KEY(BookID) REFERENCES tblBook(BookID),
+    FOREIGN KEY(CustomerID) REFERENCES tblCustomer(CustomerID)
 );
-
 
