@@ -10,7 +10,7 @@ CASE
 	WHEN tblTypesetter.TypesetterID IS NULL THEN 'Printer'
 	WHEN tblPrinter.PrinterID IS NULL THEN 'Typesetter'
 	ELSE 'ERR or TS'
-END AS 'Service Type'
+END AS 'ServiceType'
 FROM tblSupplier
 LEFT JOIN tblTypesetter USING (SupplierID)
 LEFT JOIN tblPrinter USING (SupplierID)

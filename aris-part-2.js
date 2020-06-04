@@ -17,7 +17,7 @@ const projectsPool = mariadb.createPool({
     password:           'jaaab',
     connectionLimit:    5,
     database:           'projects',
-    debug:              true
+    debug:              false
 });
 
 const suppliersPool = mariadb.createPool({
@@ -26,7 +26,7 @@ const suppliersPool = mariadb.createPool({
     password:           'jaaab',
     connectionLimit:    5,
     database:           'suppliers',
-    debug:              true
+    debug:              false
 });
 
 
@@ -103,7 +103,7 @@ async function selectSuppliersTableData(res, name, id) {
         }
         else {
             buildListTable(res,rows);
-            return res.send(JSON.stringify(rows));
+            //return res.send(JSON.stringify(rows));
         }
     }
 }
@@ -232,7 +232,7 @@ async function selectProjectsTableData(res, name, id) {
         }
         else {
             buildListTable(res,rows);
-            return res.send(JSON.stringify(rows));
+            //return res.send(JSON.stringify(rows));
         }
     }
 }
@@ -285,8 +285,6 @@ app.get("/viewtable/s/:tableName", (req, res) => {
 
     console.log("Viewing table: " + name);
 
-    let rows;
-
     selectSuppliersTableData(res, name, null);
 
 });
@@ -296,8 +294,6 @@ app.get("/viewtable/p/:tableName", (req, res) => {
 	const name = req.params.tableName;
 
     console.log("Viewing table: " + name);
-
-    let rows;
 
     selectProjectsTableData(res, name, null);
 
@@ -312,8 +308,6 @@ app.get("/viewproject/:projectID", (req, res) => {
 
     console.log(`Viewing project : ${projectID}`);
 
-    let rows;
-
     selectProjectsTableData(res, 'tblProject', projectID, null);
 });
 
@@ -325,8 +319,6 @@ app.get("/viewsupplier/:supplierID", (req, res) => {
     const supplierID = req.params.supplierID;
 
     console.log(`Viewing supplier : ${supplierID}`);
-
-    let rows;
 
     selectSuppliersTableData(res, 'tblSupplier', supplierID);
 });

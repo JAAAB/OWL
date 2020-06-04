@@ -2,7 +2,7 @@
 <html>
 	<head>
             <!--<link rel="stylesheet" href="stylesheet.css"> -->
-		<!--<script src = "../modules/util.js"></script> -->
+            <!-- <script src = "../modules/util.js"></script> -->
 	</head>
     <style>
     head{
@@ -27,7 +27,7 @@
 	    border-radius:4px;
 	    margin:8px;
     }
-    </style>
+</style>
 <body> 
 	<h1>New/Edit Project</h1>
 
@@ -43,7 +43,9 @@
             document.getElementById('container').innerHTML = '';
             let renderedForm = `<form action="/project_save" method="POST">`
             
+            console.log(rows);
             rows.map((row) => {
+                console.log(row);
                 myDate = row.ApprovalDate.replace(/T.*/gi,"");
                 console.log(myDate);
 

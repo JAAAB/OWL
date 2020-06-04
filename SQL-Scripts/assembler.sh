@@ -23,6 +23,10 @@ SECONDARY='secondary-project-db-assemble.sql'
 TERTIARY='tertiary-vews-db-addition.sql'
 DATA='fill-data.sql'
 
+#echo "Please enter sudo password to start mariadb"
+#echo "executing sudo systemctl start mariadb"
+#sudo systemctl start mariadb
+
 mysql -u $USER < "${SCRIPTPATH}reset.sql"
 
 mysql -u $USER < "${SCRIPTPATH}${INIT}"
