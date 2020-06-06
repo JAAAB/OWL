@@ -1,0 +1,20 @@
+Order ID,Customer Name,Item Quantity,Date,Total Price,Status
+1,Barnes & Noble,2500,4/21/2019,"$50,000.00 ",Paid
+2,XYZ Books,150,4/21/2019,"$2,250.00 ",Not Paid
+3,Harvard University ,230,5/10/2019,"$22,500.00 ",Not Paid
+4,Powells,1600,6/5/2019,"$29,999.99 ",Not Paid
+5,Amazon,2900,6/19/2019,"$36,250.00 ",Paid
+6,Ali Baba,400,8/23/2019,"$10,000.00 ",Paid
+7,Book Bin,50,10/1/2019,"$2,000.00 ",Not Paid
+8,OIT Bookstore,80,11/11/2019,"$8,999.99 ",Paid
+9,Target,650,12/19/2019,"$11,000.00 ",Paid
+10,Walmart,800,1/29/2019,"$15,000.00 ",Not Paid
+,,,,,
+,,,,,
+,,,,,
+Totals:,,9360,,"$187,999.98 ",
+,,,,,
+Total Orders:,10,,,,
+,,,,,
+Total Paid:,5,,,"$116,249.99 ",
+Total Not Paid:,5,,,"$71,749.99 ",
