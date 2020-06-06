@@ -18,10 +18,10 @@
 		</div>
 </head>
 <body> 
-  <h1>View Suppliers</h1>
-    <div id="addsupplier" align="center">
-<form action="/newsupplier.html" method="get">
-    <input type="submit" name="Add Supplier" value="Add Supplier" />
+  <h1>View Customers</h1>
+    <div id="addcustomer" align="center">
+<form action="/newcustomer.html" method="get">
+    <input type="submit" name="Add Customer" value="Add Customer" />
 </form>
 <br>
     </div>
@@ -38,11 +38,11 @@
 
       document.getElementById('container').innerHTML = '';
             let renderedTable =
-                    `<table><tr><th>SupplierID</th><th>SupplierName</th><th>Email</th><th>PhoneNumber</th><th>Address</th><th>Average
-                    Rating</th><th>Average Cost</th><th>Amount Owed</th><th>Service Type</th>`
+                    `<table><tr><th>CustomerID</th><th></th><th>Name</th><th>Email</th><th>Address</th><th>ServiceType</th>`
 
       rows.map((row) => { 
-      renderedTable += `<tr><td><a href=/editsupplier/${row.SupplierID}>${row.SupplierID}</a></td><td>${row.SupplierName}</td><td>${row.Email}</td><td>${row.PhoneNumber}</td><td>${row.Address}</td><td>${row.AvgRating}</td><td>${row.AvgCost}</td><td>${row.AmountOwed}</td><td>${row.ServiceType}</td></tr>`;
+      renderedTable += `<tr><td><a
+              href=/editcustomer/${row.CustomerID}>${row.CustomerID}</a></td><td>${row.Name}</td><td>${row.Email}</td><td>${row.PhoneNumber}</td><td>${row.Address}</td><td>${row.ServiceType}</td></tr>`;
       });
       renderedTable += `</table>`;
       document.getElementById('container').innerHTML = renderedTable;

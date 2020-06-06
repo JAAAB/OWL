@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		Main Menu > Suppliers > New/Edit Supplier
+		<link rel="stylesheet" href="stylesheet.css">
+		<!--<script src = "../modules/util.js"></script> -->
+	</head>
+<body> 
+	<h1>New/Edit Supplier</h1>
+
+	<div>
+		<form action="/supplier_create" method="POST">
+			<label for="supplier_name">Supplier Name:</label>
+			<input style= "width: 400px" placeholder="Supplier Name" name="supplier_name"/><br>
+
+			<label for="email">Email:</label>
+			<input style= "width: 200px" placeholder= "i@i.com" name="email">
+
+			<label style= "width: 60px" for="PhoneNumbers">Phone:</label>
+			<input style= "width:100px" name="PhoneNumbers"><br>
+
+			<label for="address">Address:</label>
+			<input style="width:400px" placeholder="" name="address">
+            </br>
+
+			<label for="avgrating">Average Rating:</label>
+			<input id="avgrating" name="avgrating">
+
+			<label for="avgcost">Average Cost:</label>
+			<input style="width:150px" name="avgcost">
+            </br>
+
+			<label for="amtowed">Amount Owed:</label>
+			<input style= "width: 100px" name="amtowed">
+            <br>
+			
+            <label for="svctype">Service Type:</label>
+			<input style= "width: 100px" name="svctype">
+
+			<br><br>
+
+			<button>Submit</button>
+            <form action="/" method="GET">
+            <button type="cancel" form="form" value="Cancel">Cancel</label>
+            </form>
+
+		</form>
+	</div>
+
+</body>
+</html>

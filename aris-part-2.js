@@ -360,6 +360,12 @@ app.get("/contracts", (req, res) => {
     selectProjectsTableData(res, 'vewContracts', null);
 });
 
+app.get("/customers", (req, res) => {
+    res.sendFile(__dirname + '/public/customers.html');
+
+    selectProjectsTableData(res, 'tblCustomer', null);
+});
+
 app.get("/reports", (req, res) => {
     res.sendFile(__dirname + '/public/reports.html');
 
