@@ -228,10 +228,10 @@ async function selectProjectsTableData(res, name, id) {
         console.log(`Returning rows...`);
 
         if (id !== null) {
-            buildTable(res,rows);
+            await buildTable(res,rows);
         }
         else {
-            buildListTable(res,rows);
+            await buildListTable(res,rows);
             //return res.send(JSON.stringify(rows));
         }
     }
