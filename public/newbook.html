@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		Main Menu > Books > New Book
+		<link rel="stylesheet" href="stylesheet.css">
+		<!--<script src = "../modules/util.js"></script> -->
+	</head>
+<body> 
+	<h1>New Book</h1>
+
+	<div>
+		<form action="/book_create" method="POST">
+			<label for="book_title">Book Title:</label>
+			<input style= "width: 400px" placeholder="Book Title" name="book_title"/><br>
+
+			<label for="project">Project:</label>
+			<input style= "width: 200px" placeholder= "Project Name" list="projects" name="project">
+			<datalist id="projects">
+				<option value="Fe-Man!">
+				<option value="Dragon-Bjorn">
+			</datalist>
+
+			<label style= "width: 60px" for="edition">Edition:</label>
+			<input style= "width:100px" name="edition"><br>
+
+			<label for="language">Language:</label>
+			<input style="width:105px" placeholder="English" list="language" name="language">
+			<datalist id="language">
+				<option value="English">
+				<option value="Japanese">
+				<option value="Spanish">
+				<option value="German">
+				<option value="Klingon">
+			</datalist>
+
+			<label style="width: 55px" for="format">Format:</label>
+			<input style= "width: 200px" placeholder= "Ebook" list="formats" name="format">
+			<datalist id="formats">
+				<option value="Hard Cover">
+				<option value="PDF">
+			</datalist>
+
+			<br>
+
+			<label for="date">Publish Date:</label>
+			<input type="date" id="date" name="publish_date">
+			
+			<label style="width: 98px" for="price">Price:</label>
+			<input type="number" step="any" name="price">
+
+			<br><br>
+
+			<button>Submit</button>
+
+	</form>
+	</div>
+
+</body>
+</html>
