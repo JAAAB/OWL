@@ -9,47 +9,24 @@
 
 	<div>
 		<form action="/customer_create" method="POST">
-			<label for="_title">Book Title:</label>
-			<input style= "width: 400px" placeholder="Book Title" name="book_title"/><br>
+			<label for="name">Customer Name:</label>
+			<input style= "width: 200px" placeholder= "Customer Name" name="name"><br>
 
-			<label for="project">Project:</label>
-			<input style= "width: 200px" placeholder= "Project Name" list="projects" name="project">
-			<datalist id="projects">
-				<option value="Fe-Man!">
-				<option value="Dragon-Bjorn">
-			</datalist>
+			<label for="email">Email:</label>
+			<input style="width:200px" placeholder="example@email.com" name="email">
 
-			<label style= "width: 60px" for="edition">Edition:</label>
-			<input style= "width:100px" name="edition"><br>
+			<label style= "width: 60px" for="phone">Phone:</label>
+			<input style= "width:100px" name="phone"><br>
+		
+			<label for="address">Address:</label>
+			<input style="width:400px" type="address" id="address" name="address"><br>
 
-			<label for="language">Language:</label>
-			<input style="width:105px" placeholder="English" list="language" name="language">
-			<datalist id="language">
-				<option value="English">
-				<option value="Japanese">
-				<option value="Spanish">
-				<option value="German">
-				<option value="Klingon">
-			</datalist>
-
-			<label style="width: 55px" for="format">Format:</label>
-			<input style= "width: 200px" placeholder= "Ebook" list="formats" name="format">
-			<datalist id="formats">
-				<option value="Hard Cover">
-				<option value="PDF">
-			</datalist>
-
-			<br>
-
-			<label for="date">Publish Date:</label>
-			<input type="date" id="date" name="publish_date">
-			
-			<label style="width: 98px" for="price">Price:</label>
-			<input type="number" step="any" name="price">
-
-			<br><br>
-
+		
 			<button>Submit</button>
+
+			<form action="/" method="GET" id="cancel">
+            		<button type="cancel" form="form2" value="Cancel">Cancel</button>
+            		</form>
 
 	</form>
 	</div>

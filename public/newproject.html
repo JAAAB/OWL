@@ -3,20 +3,14 @@
 	<head>
 		Main Menu > Projects > New/Edit Project
 		<link rel="stylesheet" href="stylesheet.css">
-		<!--<script src = "../modules/util.js"></script> -->
 	</head>
 <body> 
-	<h1>New/Edit Project</h1>
+	<h1>New Project</h1>
 
 	<div>
 		<form action="/project_create" method="POST">
 			<label for="project_title">Project Tile:</label>
 			<input style= "width: 400px" placeholder="Project Title" name="project_title"/><br>
-
-			<!-- This is not going to be an option when creating a new record
-			<label for="projectid">Project ID:</label>
-			<input style= "width: 400px" placeholder="0000000000000000000000" name="projectid"/><br>
-			-->
 
 			<label for="author">Author:</label>
 			<input style= "width: 200px" placeholder= "Author Name" list="authors" name="author">
@@ -74,29 +68,10 @@
 
 			<button>Submit</button>
 
+			<form action="/" method="GET" id="cancel">
+            			<button type="cancel" form="form2" value="Cancel">Cancel</button>
+            		</form>
 
-
-
-
-
-		<!--
-		<script>
-			var mysql = require('mysql');
-			var authorNames = new Array();
-			var util = require('../modules/util.js');
-			
-			var queryString = "SELECT CONCAT(FirstName, ' ', LastName) AS Name FROM tblAccount JOIN tblAuthor ON tblAuthor.AccountID = tblAccount.AccountID;"
-			var connection = util.getProjectsConnection();
-connection.query(queryString, async (err, rows, fields) => {
-				if(err){
-					console.log("FAILED TO GRAB AUTHORS: " + err);
-					return;
-				}
-				console.log('GOT AUTHORS');
-			})
-
-		</script>
-		-->
 		</form>
 	</div>
 
