@@ -366,6 +366,81 @@ app.get("/reports", (req, res) => {
     // do something?
 });
 
+app.get('/editauthor/:authorid', (req, res) => {
+	res.sendFile(__dirname + '/public/editauthors.html');
+
+	let error;
+	const authorID = req.params.authorID;
+	const name = 'vewAuthors';
+
+    console.log("Fetching Author #: " + authorID);
+
+	let rows;
+
+	//util.selectProjectsTableData(res, name, projectID);
+    selectProjectsTableData(res, name, authorID);
+});
+
+app.get('/editbook/:bookid', (req, res) => {
+	res.sendFile(__dirname + '/public/editbooks.html');
+
+	let error;
+	const bookID = req.params.bookid;
+	const name = 'vewBooks';
+
+    console.log("Fetching Book #: " + bookID);
+
+	let rows;
+
+	//util.selectProjectsTableData(res, name, projectID);
+    selectProjectsTableData(res, name, bookID);
+});
+
+app.get('/editsupplier/:supplierid', (req, res) => {
+	res.sendFile(__dirname + '/public/editsuppliers.html');
+
+	let error;
+	const supplierID = req.params.supplierid;
+	const name = 'vewSuppliers';
+
+    console.log("Fetching Supplier #: " + supplierID);
+
+	let rows;
+
+	//util.selectProjectsTableData(res, name, projectID);
+    selectProjectsTableData(res, name, supplierID);
+});
+
+app.get('/editorder/:orderid', (req, res) => {
+	res.sendFile(__dirname + '/public/editorders.html');
+
+	let error;
+	const orderID = req.params.orderid;
+	const name = 'vewOrders';
+
+    console.log("Fetching Order #: " + orderID);
+
+	let rows;
+
+	//util.selectProjectsTableData(res, name, projectID);
+    selectProjectsTableData(res, name, orderID);
+});
+
+app.get('/editcontract/:contractid', (req, res) => {
+	res.sendFile(__dirname + '/public/editcontract.html');
+
+	let error;
+	const contractID = req.params.contractid;
+	const name = 'vewContracts';
+
+    console.log("Fetching Contract #: " + contractID);
+
+	let rows;
+
+	//util.selectProjectsTableData(res, name, projectID);
+    selectProjectsTableData(res, name, contractID);
+});
+
 app.get('/editproject/:projectid', (req, res) => {
 	res.sendFile(__dirname + '/public/editproject.html');
 
