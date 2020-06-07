@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-  		<link rel="stylesheet" href="stylesheet.css">
-  		<div class="topnav">
+	<head>
+		<link rel="stylesheet" href="stylesheet.css">
+		<div class="topnav">
 			<a href="/index.html">Home</a>
 			<a href="/authors">Authors</a>
 			<a href="/projects">Projects</a>
@@ -11,52 +11,40 @@
 			<a href="/customers">Customers</a>
 			<a href="/orders">Orders</a>
 			<a href="/contracts">Contracts</a>
-			<a class="active" href="/reports">Reports</a>
+			<a href="/reports">Reports</a>
 			<div class="topnav-right">
-				<a href="/login.html">Log In</a>
+				<a class="active" href="/login.html">Log In</a>
 			</div>
 		</div>
-</head>
-<body> 
-  <h1>View Orders</h1>
-    <div id="addorder" align="center">
-<form action="/neworder.html" method="get">
-    <input type="submit" name="Add Order" value="Add Order" />
-</form>
-<br>
-    </div>
+	</head>
 
-  <div id="container">
-    Loading...
-  </div>
+<body style="background-color:darkgrey"> 
+	<div class="main">
+		<center>
+			<h1 style="font-size:xx-large">Log In</h1>
+			<p style="font-size:larger">OWL Publishing System</p>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io();
-    socket.on('dbResponse', (rows) => {
-      console.log("Working in HTML...");
+		<br><br><br>		
 
-      document.getElementById('container').innerHTML = '';
-            let renderedTable =
-                    `<table><tr><th>OrderID</th><th>Name</th><th>Date</th><th>TotalItems</th><th>TotalPrice</th><th>Status</th>`
+		<img src= "loginsmall.png"><br><br><br>
+	
+	
+	<!--
+	<iframe width="420" height="315"
+	src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1">
+		
+	</iframe> -->
+	
+	<!-- <label for="username">Username:</label> -->
+	<input style="width:200px" placeholder="username/email" name="author"><br>
 
-      rows.map((row) => { 
-      var myprice = row.TotalPrice;
-      var mappedprice;
-        try {
-          mappedprice = myprice.toLocaleString('us-US', { style: 'currency', currency: 'USD'});
-        } catch (error) {
-          mappedprice = myprice;
-          console.log(error);
-        }
-      renderedTable += `<tr><td><a
-              href=/editorder/${row.OrderID}>${row.OrderID}</a></td><td>${row.Name}</td><td>${row.Date}</td><td>${row.TotalItems}</td><td>${mappedprice}</td><td>${row.Status}</td></tr>`;
-      });
-      renderedTable += `</table>`;
-      document.getElementById('container').innerHTML = renderedTable;
-      console.log(renderedTable);
-    });
-  </script>
+	<!-- <label for="password">Password:</label> -->
+	<input style="width:200px" placeholder="password" type="password" name="password"><br><br>
 
+	<button>Log in</button>
+	
+	</center>
+			
+	</div>
 </body>
 </html>
