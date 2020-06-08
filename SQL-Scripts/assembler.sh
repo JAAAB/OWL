@@ -22,6 +22,7 @@ INIT='init-supplier-db-assemble.sql'
 SECONDARY='secondary-project-db-assemble.sql'
 TERTIARY='tertiary-vews-db-addition.sql'
 DATA='fill-data.sql'
+PROCS='last-procs-db-addition.sql'
 
 #echo "Please enter sudo password to start mariadb"
 #echo "executing sudo systemctl start mariadb"
@@ -34,3 +35,5 @@ mysql -u $USER < "${SCRIPTPATH}${SECONDARY}"
 mysql -u $USER < "${SCRIPTPATH}${DATA}"
 
 mysql -u $USER < "${SCRIPTPATH}${TERTIARY}"
+
+mysql -u $USER < "${SCRIPTPATH}${PROCS}"

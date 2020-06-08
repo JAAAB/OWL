@@ -108,62 +108,6 @@ async function selectSuppliersTableData(res, name, id) {
     }
 }
 
-/*async function selectsupplierstabledata(res, name, id) {
-    let conn;
-    let key;
-    let primarykey;
-    let rows;
-
-    conn = await supplierspool.getconnection();
-    console.log(`got connection!`);
-
-    if (id !== null) {
-        key = await conn.query(`select column_name from information_schema.columns where
-            column_key = 'pri' and table_name = '${name}';`);
-
-        const key_obj = json.parse(json.stringify(key));
-
-        for (var i in key_obj) {
-            var item = key_obj[i];
-            for (var j in item) {
-                primarykey = item[j];
-                //console.log("this is my primary key !!! : " + primarykey);
-            }
-        }
-    }
-
-    let query = id !== null ?
-        `select * from ${name} where ${primarykey} = '${id}' order by ${primarykey} desc;` :
-            `select * from ${name};`;
-
-    console.log(query);
-
-    try {
-
-        rows = await conn.query(query);
-        console.log(`getting rows...`);
-    }
-    catch (err) {
-            console.log("error!!!");
-            throw err;
-            return null;
-    } finally {
-        if (conn) {
-            console.log(`ending connection...`);
-            conn.end();
-        }
-        console.log(`returning rows...`);
-
-        if (id !== null) {
-            buildtable(res,rows);
-        }
-        else {
-            return res.send(json.stringify(rows));
-        }
-    }
-}*/
-
-
 async function selectProjectsTableData(res, name, id) {
     let conn;
     let key;
@@ -233,6 +177,23 @@ async function selectProjectsTableData(res, name, id) {
         else {
             await buildListTable(res,rows);
             //return res.send(JSON.stringify(rows));
+        }
+    }
+}
+
+async function insertSuppliersData (queryString) {
+    conn = await suppliersPool.getConnection();
+    try {
+        rows = await conn.query(queryString);
+    }
+    catch (err) {
+        console.log("ERROR!!!");
+        throw err;
+        return null;
+    } finally {
+        if (conn) {
+            console.log(`Ending connection...`);
+            conn.end();
         }
     }
 }
@@ -513,6 +474,45 @@ app.post('/project_create', (req, res) => {
 		res.end();
 	});
 })
+
+app.post('/supplier_create', (req, res) => {
+	console.log("Creating new supplier...");
+	console.log("Name = " + req.body.supplier_name);
+	console.log("Email = " + req.body.email);
+	console.log("PhoneNumber = " + req.body.PhoneNumbers);
+	console.log("Address = " + req.body.address);
+	console.log("Avg Rating = " + req.body.avgrating);
+	console.log("Avg Cost = " + req.body.avgcost);
+	console.log("Amount Owed = " + req.body.amtowed);
+	console.log("Service Type = " + req.body.svctype);
+
+	var SQLStatus = 0;
+	if(req.body.status == 'Active'){
+		SQLStatus = 1;
+	}
+    var serviceType = 0;
+    if (req.body.svctype === 'Printer') {
+        serviceType = 1;
+        console.log("Setting to printer...");
+    }
+
+    console.log("\n");
+
+	var queryString = `call
+        AddSupplier('${req.body.supplier_name}','${req.body.email}','${req.body.PhoneNumbers}','${req.body.address}',${req.body.avgrating},${req.body.avgcost},${serviceType},${req.body.amtowed});`;
+
+    console.log(queryString);
+
+
+    insertSuppliersData(queryString);
+
+    console.log("Done.\n\n");
+
+
+    res.redirect("/");
+    res.end();
+
+});
 
 app.post('/project_save', (req, res) => {
 	console.log("Saving changes to project...");
