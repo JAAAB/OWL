@@ -131,7 +131,7 @@ async function selectProjectsTableData(res, name, id) {
     }
     else if (name === 'tblAuthor' || name === 'vewAuthors') {
         name = 'vewAuthors';
-        primarykey = 'AuthorID';
+        primaryKey = 'AuthorID';
     }
 
     if (id !== null && primaryKey === null) {
@@ -177,6 +177,23 @@ async function selectProjectsTableData(res, name, id) {
         else {
             await buildListTable(res,rows);
             //return res.send(JSON.stringify(rows));
+        }
+    }
+}
+
+async function insertProjectsData (queryString) {
+    conn = await projectsPool.getConnection();
+    try {
+        rows = await conn.query(queryString);
+    }
+    catch (err) {
+        console.log("ERROR!!!");
+        throw err;
+        return null;
+    } finally {
+        if (conn) {
+            console.log(`Ending connection...`);
+            conn.end();
         }
     }
 }
@@ -334,10 +351,10 @@ app.get("/reports", (req, res) => {
 });
 
 app.get('/editauthor/:authorid', (req, res) => {
-	res.sendFile(__dirname + '/public/editauthors.html');
+	res.sendFile(__dirname + '/public/editauthor.html');
 
 	let error;
-	const authorID = req.params.authorID;
+	const authorID = req.params.authorid;
 	const name = 'vewAuthors';
 
     console.log("Fetching Author #: " + authorID);
@@ -475,6 +492,113 @@ app.post('/project_create', (req, res) => {
 	});
 })
 
+app.post('/author_create', (req, res) => {
+	console.log("Creating new author...");
+	console.log("Author Name = " + req.body.author_name);
+	console.log("Email = " + req.body.email);
+	console.log("PhoneNumber = " + req.body.phone);
+	console.log("Address = " + req.body.address);
+
+	var SQLStatus = 0;
+	if(req.body.status == 'Active'){
+		SQLStatus = 1;
+	}
+    var serviceType = 0;
+    if (req.body.svctype === 'Printer') {
+        serviceType = 1;
+        console.log("Setting to printer...");
+    }
+
+    console.log("\n");
+
+	var queryString = `call AddAuthor('${req.body.author_name}','${req.body.email}','${req.body.phone}','${req.body.address}')`;
+
+    console.log(queryString);
+
+
+    insertProjectsData(queryString);
+
+    console.log("Done.\n\n");
+
+
+    res.redirect("/");
+    res.end();
+
+});
+
+app.post('/author_save', (req, res) => {
+	console.log("Altering author...");
+	console.log("Author Name = " + req.body.author_name);
+	console.log("Email = " + req.body.email);
+	console.log("PhoneNumber = " + req.body.phone);
+	console.log("Address = " + req.body.address);
+
+	var SQLStatus = 0;
+	if(req.body.status == 'Active'){
+		SQLStatus = 1;
+	}
+    var serviceType = 0;
+    if (req.body.svctype === 'Printer') {
+        serviceType = 1;
+        console.log("Setting to printer...");
+    }
+
+    console.log("\n");
+
+	var queryString = `call
+        EditAuthor('${req.body.author_name}','${req.body.email}','${req.body.phone}','${req.body.address}',${req.body.Author_ID})`;
+
+    console.log(queryString);
+
+
+    insertProjectsData(queryString);
+
+    console.log("Done.\n\n");
+
+
+    res.redirect("/");
+    res.end();
+
+});
+
+app.post('/supplier_save', (req, res) => {
+	console.log("Altering supplier...");
+	console.log("Name = " + req.body.supplier_name);
+	console.log("Email = " + req.body.email);
+	console.log("PhoneNumber = " + req.body.PhoneNumbers);
+	console.log("Address = " + req.body.address);
+	console.log("Avg Rating = " + req.body.avgrating);
+	console.log("Avg Cost = " + req.body.avgcost);
+	console.log("Amount Owed = " + req.body.amtowed);
+	console.log("Service Type = " + req.body.svctype);
+
+	var SQLStatus = 0;
+	if(req.body.status == 'Active'){
+		SQLStatus = 1;
+	}
+    var serviceType = 0;
+    if (req.body.svctype === 'Printer') {
+        serviceType = 1;
+        console.log("Setting to printer...");
+    }
+
+    console.log("\n");
+
+	var queryString = `call
+        EditSupplier('${req.body.supplier_name}','${req.body.email}','${req.body.PhoneNumbers}','${req.body.address}',${req.body.avgrating},${req.body.avgcost},${serviceType},${req.body.amtowed},${req.body.supplier_id});`;
+
+    console.log(queryString);
+
+
+    insertSuppliersData(queryString);
+
+    console.log("Done.\n\n");
+
+
+    res.redirect("/");
+    res.end();
+
+});
 app.post('/supplier_create', (req, res) => {
 	console.log("Creating new supplier...");
 	console.log("Name = " + req.body.supplier_name);

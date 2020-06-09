@@ -30,3 +30,37 @@ BEGIN
     END IF;
 END; //
 DELIMITER ;
+
+use projects;
+
+
+DELIMITER //
+create or replace procedure AddAuthor (AuthorName varchar(25), AuthorEmail varchar(25),
+        AuthorPhoneNumber varchar(12), AuthorAddress varchar(50))
+BEGIN
+    insert into tblAccount (FullName, Email, Address, Phone, RoleID)
+    values (AuthorName, AuthorEmail, AuthorAddress, AuthorPhoneNumber, 2);
+
+    select @ID := AccountID from tblAccount where FullName = AuthorName;
+    
+    insert into tblAuthor (AccountID)
+    values (@ID);
+END; //
+DELIMITER ;
+;
+
+use projects;
+
+DELIMITER //
+create or replace procedure EditAuthor (AuthorName varchar(25), AuthorEmail varchar(25),
+        AuthorPhoneNumber varchar(12), AuthorAddress varchar(50), AuthorAuthorID INT)
+BEGIN
+    select @ID := AccountID from tblAuthor where AuthorID = AuthorAuthorID;
+
+    update tblAccount
+    set FullName = AuthorName, Email = AuthorEmail, Address = AuthorAddress, 
+        Phone = AuthorPhoneNumber 
+    where AccountID = @ID;
+END; //
+DELIMITER ;
+;

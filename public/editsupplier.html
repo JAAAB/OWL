@@ -25,8 +25,9 @@
                 console.log(myDate);
 
 
-                renderedForm += `<label for="project_title">Project Tile:</label><input style=
-                "width: 400px" placeholder="${row.Title}" name="project_title"
+                    renderedForm += `<input type="hidden" name="supplier_id"
+                    value="${row.SupplierID}"><label for="project_title">Project Tile:</label>
+                    <input style="width: 400px" placeholder="${row.Title}" name="project_title"
                 value="${row.Title}"/><br><label for="projectid">Project ID:</label><input style=
                 "width: 400px"w value="${row.ProjectID}" name="projectid" readonly><br><label
                 for="author">Author:</label><input style= "width: 200px" placeholder=
@@ -41,7 +42,8 @@
                 Date:</label><input type="date" id="date" name="approval_date"
                     value="${myDate}"><br><label
                 for="contract">Contract (years):</label><input list="contracts" placeholder="Select
-                a Length" name="contract" value="${row.Years}"><datalist id="contracts"><option value="2"><option
+                a Length" name="contract" value="${row.Years}"><datalist id="contracts">
+                <option value="2"><option
                 value="5"><option value="10"></datalist><label style= "width:107px"
                 for="sales">Total Sales:</label><input name="sales"><br><label style= "width:128px"
                 for="notes">Description:</label><input id="notes" name="notes" style="width: 400px" value="${row.Notes}" placeholder

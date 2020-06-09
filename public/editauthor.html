@@ -2,11 +2,34 @@
 <html>
 	<head>
 		Main Menu > Projects > New/Edit Author 
-        <!--<link rel="stylesheet" href="stylesheet.css">-->
-		<!--<script src = "../modules/util.js"></script> -->
+        <!-- <link rel="stylesheet" href="stylesheet.css">-->
 	</head>
-<body> 
-	<h1>New/Edit Project</h1>
+    <style>
+    head{
+	    font-size: 17px;
+    	font-family: verdana;
+    }
+
+    body{
+	    background-color: darkgrey;
+	    font-size: 12px;
+	    font-family: verdana;
+    }
+
+    label{
+	    width: 120px;
+	    display: inline-block;
+    }
+
+    input{
+	    padding: 6px;
+	    font-size:12px;
+	    border-radius:4px;
+	    margin:8px;
+    }
+    </style>
+    <body> 
+	<h1>New/Edit Author</h1>
 
 	<div id="container">
         Loading...
@@ -18,36 +41,21 @@
             console.log("Working in HTML...");
 
             document.getElementById('container').innerHTML = '';
-            let renderedForm = `<form action="/project_save" method="POST">`
+            let renderedForm = `<form action="/author_save" method="POST">
+`
             
             rows.map((row) => {
-                myDate = row.ApprovalDate.replace(/T.*/gi,"");
-                console.log(myDate);
-
-
-                renderedForm += `<label for="project_title">Project Tile:</label><input style=
-                "width: 400px" placeholder="${row.Title}" name="project_title"
-                value="${row.Title}"/><br><label for="projectid">Project ID:</label><input style=
-                "width: 400px"w value="${row.ProjectID}" name="projectid" readonly><br><label
-                for="author">Author:</label><input style= "width: 200px" placeholder=
-                "${row.Author}" list="authors" name="author" value="${row.Author}"><datalist
-                id="authors"><option value="Rick Writer">
-				<option value="Baskin Robbins"></datalist><label style= "width: 60px"
-                for="edition">Edition:</label><input style= "width:100px" name="edition"
-                    value="${row.Edition}"><br><label
-                for="status">Status:</label><input style="width:105px" placeholder="Inactive"
-                list="status" name="status" value="${row.Status}"><datalist id="status"><option
-                value="Active"><option value="Inactive"></datalist><label for="date">Approval
-                Date:</label><input type="date" id="date" name="approval_date"
-                    value="${myDate}"><br><label
-                for="contract">Contract (years):</label><input list="contracts" placeholder="Select
-                a Length" name="contract" value="${row.Years}"><datalist id="contracts"><option value="2"><option
-                value="5"><option value="10"></datalist><label style= "width:107px"
-                for="sales">Total Sales:</label><input name="sales"><br><label style= "width:128px"
-                for="notes">Description:</label><input id="notes" name="notes" style="width: 400px" value="${row.Notes}" placeholder
-                            ="Project description..."</input><br><br>`;
+                    renderedForm += `<input type="hidden" name="Author_ID"
+                    value="${row.AuthorID}"><label for="author_name">Author Name:</label><input
+                    style= "width:200px"name="author_name" value="${row.FullName}"><br><label
+                for="email">Email:</label><input style="width:200px" value="${row.Email}"
+                name="email"><label style= "width: 60px" for="phone">Phone:</label><input style=
+                "width:100px" value="${row.Phone}" name="phone"><br><label
+                for="address">Address:</label><input style="width:400px" type="address"
+                value="${row.Address}" id="address"
+                name="address"><br><button>Submit</button><form action="/" method="GET"id="cancel"><button type="cancel" form="form2" value="Cancel">Cancel</button>`;
             });
-            renderedForm += `<!-- Below this line is just for decoration, no functionality --><label style= "width:128px" for="manuscripts">Manuscripts:</label><textarea id="manuscripts" rows="6" cols="50"></textarea><br><label for="manuupload">Upload Manuscript...</label><input type="file" name="manuupload"><br><label style="width:128px" for="digitalmaterials">Digital Materials:</label><textareaid="digitalmaterials" rows="4" cols="50"></textarea><br><label for="matsupload">Upload Materials...</label><input type="file" name="matsupload"><br><button>Submit</button><!--<script>var mysql = require('mysql');var authorNames = new Array();var util = require('../modules/util.js');var queryString = "SELECT CONCAT(FirstName, '', LastName) AS Name FROM tblAccount JOIN tblAuthor ON tblAuthor.AccountID = tblAccount.AccountID;"var connection = util.getProjectsConnection();connection.query(queryString, async (err, rows, fields) => {if(err){console.log("FAILED TO GRAB AUTHORS: " + err);return;}console.log('GOT AUTHORS');})</script>--></form></div></body></html>`;
+            renderedForm += "</form></form>";
             document.getElementById('container').innerHTML = renderedForm;
             console.log("sent RenderedForm!");
         });
