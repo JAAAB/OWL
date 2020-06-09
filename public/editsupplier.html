@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		Main Menu > Projects > New/Edit Project
+		Main Menu > Suppliers > New/Edit Supplier
         <!--<link rel="stylesheet" href="stylesheet.css">-->
 		<!--<script src = "../modules/util.js"></script> -->
 	</head>
+    <style>
+    head{
+	    font-size: 17px;
+    	font-family: verdana;
+    }
+
+    body{
+	    background-color: darkgrey;
+	    font-size: 12px;
+	    font-family: verdana;
+    }
+
+    label{
+	    width: 120px;
+	    display: inline-block;
+    }
+
+    input{
+	    padding: 6px;
+	    font-size:12px;
+	    border-radius:4px;
+	    margin:8px;
+    }
+    </style>
 <body> 
-	<h1>New/Edit Project</h1>
+	<h1>New Supplier</h1>
 
 	<div id="container">
         Loading...
@@ -18,38 +42,30 @@
             console.log("Working in HTML...");
 
             document.getElementById('container').innerHTML = '';
-            let renderedForm = `<form action="/project_save" method="POST">`
+            let renderedForm = `<form action="/supplier_save" method="POST">`
             
             rows.map((row) => {
-                myDate = row.ApprovalDate.replace(/T.*/gi,"");
-                console.log(myDate);
-
-
-                    renderedForm += `<input type="hidden" name="supplier_id"
-                    value="${row.SupplierID}"><label for="project_title">Project Tile:</label>
-                    <input style="width: 400px" placeholder="${row.Title}" name="project_title"
-                value="${row.Title}"/><br><label for="projectid">Project ID:</label><input style=
-                "width: 400px"w value="${row.ProjectID}" name="projectid" readonly><br><label
-                for="author">Author:</label><input style= "width: 200px" placeholder=
-                "${row.Author}" list="authors" name="author" value="${row.Author}"><datalist
-                id="authors"><option value="Rick Writer">
-				<option value="Baskin Robbins"></datalist><label style= "width: 60px"
-                for="edition">Edition:</label><input style= "width:100px" name="edition"
-                    value="${row.Edition}"><br><label
-                for="status">Status:</label><input style="width:105px" placeholder="Inactive"
-                list="status" name="status" value="${row.Status}"><datalist id="status"><option
-                value="Active"><option value="Inactive"></datalist><label for="date">Approval
-                Date:</label><input type="date" id="date" name="approval_date"
-                    value="${myDate}"><br><label
-                for="contract">Contract (years):</label><input list="contracts" placeholder="Select
-                a Length" name="contract" value="${row.Years}"><datalist id="contracts">
-                <option value="2"><option
-                value="5"><option value="10"></datalist><label style= "width:107px"
-                for="sales">Total Sales:</label><input name="sales"><br><label style= "width:128px"
-                for="notes">Description:</label><input id="notes" name="notes" style="width: 400px" value="${row.Notes}" placeholder
-                            ="Project description..."</input><br><br>`;
+                    renderedForm += `<input type="hidden" value="${row.SupplierID}"
+                    name="supplier_id"><label for="supplier_name">Supplier Name:</label>
+                    <input style=
+                    "width: 400px" placeholder="Supplier Name" name="supplier_name"
+                    value="${row.SupplierName}"/><br><label for="email">Email:</label><input style=
+                    "width: 200px" placeholder= "example@email.com" value="${row.Email}"
+                    name="email"><label style= "width: 58px" for="PhoneNumbers">Phone:</label>
+                    <input style= "width:100px" name="PhoneNumbers"value="${row.PhoneNumber}"><br>
+                    <label for="address">Address:</label><input style="width:400px" placeholder="" 
+                    value="${row.Address}" name="address"></br><label for="avgrating">
+                    Average Rating:</label><input style="width:120px" id="avgrating" 
+                    name="avgrating" value="${row.AvgRating}"><label for="avgcost">Average Cost:
+                    </label><input style="width:120px" name="avgcost" value="${row.AvgCost}"></br>
+                    <label for="amtowed">Amount Owed:</label><input style= "width: 100px"
+                    name="amtowed" value="${row.AmountOwed}"><label for="svctype">Service Type:</label>
+                    <input style= "width: 140px" name="svctype" value="${row.ServiceType}" 
+                    list="services"><datalist id="services"><option value="Printer"><option
+                    value="Typesetter"></datalist><br><br><button>Submit</button><form action="/" 
+                    method="GET"><button type="cancel" form="form" value="Cancel">Cancel</label>
+                    </form></form>`;
             });
-            renderedForm += `<!-- Below this line is just for decoration, no functionality --><label style= "width:128px" for="manuscripts">Manuscripts:</label><textarea id="manuscripts" rows="6" cols="50"></textarea><br><label for="manuupload">Upload Manuscript...</label><input type="file" name="manuupload"><br><label style="width:128px" for="digitalmaterials">Digital Materials:</label><textareaid="digitalmaterials" rows="4" cols="50"></textarea><br><label for="matsupload">Upload Materials...</label><input type="file" name="matsupload"><br><button>Submit</button><!--<script>var mysql = require('mysql');var authorNames = new Array();var util = require('../modules/util.js');var queryString = "SELECT CONCAT(FirstName, '', LastName) AS Name FROM tblAccount JOIN tblAuthor ON tblAuthor.AccountID = tblAccount.AccountID;"var connection = util.getProjectsConnection();connection.query(queryString, async (err, rows, fields) => {if(err){console.log("FAILED TO GRAB AUTHORS: " + err);return;}console.log('GOT AUTHORS');})</script>--></form></div></body></html>`;
             document.getElementById('container').innerHTML = renderedForm;
             console.log("sent RenderedForm!");
         });

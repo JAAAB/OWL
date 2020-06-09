@@ -126,7 +126,7 @@ async function selectProjectsTableData(res, name, id) {
         primaryKey = 'ProjectID';
     }
     else if (name === 'tblSupplier' || name === 'vewSuppliers') {
-        name = 'vewSupplier';
+        name = 'vewSuppliers';
         primaryKey = 'SupplierID';
     }
     else if (name === 'tblAuthor' || name === 'vewAuthors') {
@@ -366,7 +366,7 @@ app.get('/editauthor/:authorid', (req, res) => {
 });
 
 app.get('/editbook/:bookid', (req, res) => {
-	res.sendFile(__dirname + '/public/editbooks.html');
+	res.sendFile(__dirname + '/public/editbook.html');
 
 	let error;
 	const bookID = req.params.bookid;
@@ -381,7 +381,7 @@ app.get('/editbook/:bookid', (req, res) => {
 });
 
 app.get('/editsupplier/:supplierid', (req, res) => {
-	res.sendFile(__dirname + '/public/editsuppliers.html');
+	res.sendFile(__dirname + '/public/editsupplier.html');
 
 	let error;
 	const supplierID = req.params.supplierid;
@@ -392,11 +392,11 @@ app.get('/editsupplier/:supplierid', (req, res) => {
 	let rows;
 
 	//util.selectProjectsTableData(res, name, projectID);
-    selectProjectsTableData(res, name, supplierID);
+    selectSuppliersTableData(res, name, supplierID);
 });
 
 app.get('/editorder/:orderid', (req, res) => {
-	res.sendFile(__dirname + '/public/editorders.html');
+	res.sendFile(__dirname + '/public/editorder.html');
 
 	let error;
 	const orderID = req.params.orderid;
@@ -563,6 +563,7 @@ app.post('/author_save', (req, res) => {
 
 app.post('/supplier_save', (req, res) => {
 	console.log("Altering supplier...");
+    console.log("ID = " + req.body.supplier_id);
 	console.log("Name = " + req.body.supplier_name);
 	console.log("Email = " + req.body.email);
 	console.log("PhoneNumber = " + req.body.PhoneNumbers);

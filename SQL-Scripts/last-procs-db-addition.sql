@@ -31,6 +31,41 @@ BEGIN
 END; //
 DELIMITER ;
 
+use suppliers;
+
+DELIMITER //
+create or replace procedure EditSupplier (ServiceName varchar(25), ServiceEmail varchar(25),
+        ServicePhoneNumber varchar(12), ServiceAddress varchar(50), ServiceAvgRating int,
+        ServiceAvgCost int, svctype int, amtowed int, Supplier_ID int)
+BEGIN
+    set @TableName = '';
+    IF svctype = 1 THEN
+        set @TableName = 'tblPrinter';
+    ELSE
+        set @TableName = 'tblTypesetter';
+    END IF;
+   
+    update tblSupplier set SupplierName=ServiceName, 
+        Email=ServiceEmail, 
+        PhoneNumber=ServicePhoneNumber
+    where SupplierID = Supplier_ID;
+    
+    set @cost := ServiceAvgCost;
+    set @rating := ServiceAvgRating;
+    set @id := Supplier_ID;
+    
+    set @query := CONCAT('update ',@TableName,' set AvgCost = @cost, AvgRating = @rating where
+        SupplierID = ',@id);
+    PREPARE stmt FROM @query;
+    EXECUTE stmt;
+
+    IF amtowed != 0 THEN
+        update tblSupplierPayment set AmountOwed = amtowed, CheckNumber = null
+        where SupplierID = Supplier_ID;
+    END IF;
+END; //
+DELIMITER ;
+
 use projects;
 
 
