@@ -73,10 +73,16 @@ from tblAccount
 where FullName like 'Baskin%Robbins';
 
 insert into tblContract (Notes, Years)
-values ('Print and EBook', 2);
+values ('Print and EBook', 1);
 
 insert into tblContract (Notes, Years)
-values ('Exclusive deal', 10);
+values ('Hardcover only', 2);
+
+insert into tblContract (Notes, Years)
+values ('Audio book and print', 3);
+
+insert into tblContract (Notes, Years)
+values ('Exclusive deal', 5);
 
 
 --insert into tblContract (AccountID, Requirements, Terms)
