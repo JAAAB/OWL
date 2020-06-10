@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		Main Menu > Books > New Book
+		Main Menu > Books > Edit Book
 		<link rel="stylesheet" href="stylesheet.css">
 		<!--<script src = "../modules/util.js"></script> -->
 	</head>
 <body> 
-	<h1>New Book</h1>
+	<h1>Edit Book</h1>
 
 	<div>
 		<form action="/book_create" method="POST">
 			<label for="book_title">Book Title:</label>
 			<input style= "width: 400px" placeholder="Book Title" name="book_title"/><br>
+
+			<label for="id">Book Number:</label>
+			<input style="width:400px" name="id"><br>
 
 			<label for="project">Project:</label>
 			<input style= "width: 200px" placeholder= "Project Name" list="projects" name="project">
