@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		Main Menu > Authors > New Author
+		Main Menu > Contracts > New Contract
 		<link rel="stylesheet" href="stylesheet.css">
 	</head>
 <body> 
-	<h1>New Author</h1>
+	<h1>New Contract</h1>
 
 	<div>
-		<form action="/author_create" method="POST">
-			<label for="author_name">Author Name:</label>
-			<input style= "width: 200px" placeholder= "Author Name" name="author_name"><br>
+		<form action="/contract_create" method="POST"> <!-- THIS ISN'T WIRED TO ANYTHING -->
+			<label for="notes">Contract Terms:</label>
+			<input style= "width: 200px" placeholder= "Contract Terms" name="author_name"><br>
+
+			<!-- THESE DONT WORK, JUST FOR SHOW -->
+
+			<label for="contract">Contract (years):</label>
+			<input list="contracts" placeholder="Select a Length" name="contract">
+			<datalist id="contracts">
+				<option value="1">
+				<option value="2">
+				<option value="3">
+				<option value="5">
+			</datalist><br>
+	
+			<label for="project">For Project:</label>
+			<input list="projects" placeholder="Select a Project" name="project">
+			<datalist id="projects">
+				<option value="Dragon-Bjorn">
+				<option value="Fe-Man!">
+			</datalist><br>
 
 
 
-			<label for="email">Email:</label>
-			<input style="width:200px" placeholder="example@email.com" name="email">
 
-			<label style= "width: 60px" for="phone">Phone:</label>
-			<input style= "width:100px" name="phone"><br>
-		
-			<label for="address">Address:</label>
-			<input style="width:400px" type="address" id="address" name="address"><br>
-
-		
 			<button>Submit</button>
             <form action="/" method="GET" id="cancel">
             <button type="cancel" form="form2" value="Cancel">Cancel</button>
