@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		Main Menu > Orders > New Order
+		Main Menu > Orders > Edit Order
 		<link rel="stylesheet" href="stylesheet.css">
 	</head>
 <body> 
-	<h1>New Order</h1>
+	<h1>Edit Order</h1>
 
 	<div>
-		<form action="/order_create" method="POST">
+		<form action="/order_edit" method="POST">
 			<label for="customer">Order for Customer:</label>
 			<input style="width:400px" list="customers" placeholder="Select Customer" name="customer">
+
 			<datalist id="customers">
 				<option value="Barnes & Noble">
 				<option value="XYZ Books">
 			</datalist><br>
+
+			<label for="id">Order Number:</label>
+			<input style="width:400px" name="id"><br>
 
 			<label for="date">Order Date:</label>
 			<input type="date" id="date" name="date"><br>
@@ -57,8 +61,10 @@
 			<textarea id="items" rows="6" cols="50">
 			</textarea><br><br>
 
-			<label style= "width:128px" for="additem">Add Items:</label>
-			<button name="Add Item">Items</button>
+			<label style= "width:128px" for="additem">Edit Items:</label>
+			<button name="Add Item">Add Items</button>
+			<button name="Remove Item">Remove Items</button>
+
 			<br><br>
 		
 			<button>Submit</button>
