@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		Main Menu > Contracts > New Contract
+		Main Menu > Contracts > Edit Contract
 		<link rel="stylesheet" href="stylesheet.css">
 	</head>
 <body> 
-	<h1>New Contract</h1>
+	<h1>Edit Contract</h1>
 
 	<div>
 		<form action="/contract_create" method="POST"> <!-- THIS ISN'T WIRED TO ANYTHING -->
+			<label for="id">Contract Number:</label>
+			<input style="width:400px" name="id"><br>
+
 			<label for="notes">Contract Terms:</label>
-			<input style= "width: 200px" placeholder= "Contract Terms" name="author_name"><br>
+			<input style= "width: 400px" placeholder= "Contract Terms" name="author_name"><br>
 
 			<!-- THESE DONT WORK, JUST FOR SHOW -->
 
