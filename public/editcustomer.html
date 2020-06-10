@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		Main Menu > Customers > Edit Customer
+		<link rel="stylesheet" href="stylesheet.css">
+	</head>
+<body> 
+	<h1>Edit Customer</h1>
+
+	<div>
+		<form action="/customer_edit" method="POST">
+			<label for="name">Customer Name:</label>
+			<input style= "width: 400px" placeholder= "Customer Name" name="name"><br>
+
+			<label for="id">Customer Number:</label>
+			<input style="width:400px" name="id"><br>
+
+			<label for="email">Email:</label>
+			<input style="width:200px" placeholder="example@email.com" name="email">
+
+			<label style= "width: 60px" for="phone">Phone:</label>
+			<input style= "width:100px" name="phone"><br>
+		
+			<label for="address">Address:</label>
+			<input style="width:400px" type="address" id="address" name="address"><br>
+
+		
+			<button>Submit</button>
+
+			<form action="/" method="GET" id="cancel">
+            		<button type="cancel" form="form2" value="Cancel">Cancel</button>
+            		</form>
+
+	</form>
+	</div>
+
+</body>
+</html>
